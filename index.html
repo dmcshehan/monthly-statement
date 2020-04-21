@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Statement</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header class="header container">
+        <form class="header-cost-form">
+            <input type="date" class="header-cost-form__date input">
+            <input class="header-cost-form__reason input" type="text" placeholder="Reason">
+            <input class="header-cost-form__amount input" type="text" placeholder="cost">
+            <select class="header-cost-form__currency input">
+                <option value="LKR">LKR</option>
+            </select>
+            <select class="header-cost-form__type input">
+                <option value="expense">Expense</option>
+                <option value="income">Income</option>
+            </select>
+            <input class="header-cost-form__submit input" type="submit" placeholder="Reason">
+        </form>
+        <div class="header-month-toogle">
+            <input type="month" class="header-month-toogle__select input">
+        </div>
+
+    </header>
+
+
+    </div>
+    <div class="month-row container">
+        <div class="month-row__col month-row__col--expenses">
+            <h2 class="month-row__month">Expenses</h2>
+            <table class="month-row__prince-table">
+                <thead>
+                    <tr>
+                        <th class="month-row__th">Date</th>
+                        <th class="month-row__th">Reason</th>
+                        <th class="month-row__th month-row__th--amount">Amount</th>
+                    </tr>
+                </thead>
+                <tbody />
+            </table>
+        </div>
+        <div class="month-row__col month-row__col--incomes">
+            <h2 class="month-row__month">Incomes</h2>
+            <table class="month-row__prince-table">
+                <thead>
+                    <tr>
+                        <th class="month-row__th">Date</th>
+                        <th class="month-row__th">Reason</th>
+                        <th class="month-row__th month-row__th--amount">Amount</th>
+                    </tr>
+                </thead>
+                <tbody />
+            </table>
+        </div>
+    </div>
+    <div class="summary">
+        <div class="summary__all summary__all--expenses">Loading</div>
+        <div class="summary__all summary__all--incomes">Loading</div>
+    </div>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.7/auth0-spa-js.production.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+
+</html>

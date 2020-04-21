@@ -1,0 +1,142 @@
+*{
+    font-family: monospace;
+}
+
+.container {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-cost-form {
+    width: max-content;
+}
+
+.month-row__th{
+    text-align: left;
+}
+.month-row__td{
+    padding:5px;
+}
+
+.month-row__actions{
+     visibility: hidden;
+    position: absolute;
+}
+
+.month-row__actions--show{
+    visibility: visible;
+    animation-name: showButton;
+    animation-duration: 1s;
+}
+
+.input{
+    padding: 10px 20px;
+}
+
+.header-cost-form__submit{
+    cursor: pointer;
+}
+
+.month-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  
+}
+.month-row__col {
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.month-row__month {
+    margin-bottom: 15px;
+}
+
+.month-row__th--amount{
+    text-align: right;
+}
+.month-row__td--amount{
+  text-align: right;
+}
+.month-row__td--date{
+    display: flex;
+    align-items: center;
+}
+
+.month-row__delete{
+
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    display: flex;
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: black;
+
+    color: white;
+
+    cursor: pointer;
+
+    line-height: 0;
+    outline: none;
+}
+
+
+.month-row__date--animate{
+    animation-name: animateDate;
+    animation-duration: 1s;
+    margin-left:25px;
+}
+
+@keyframes animateDate{
+    from {margin-left: 0}
+    to {margin-left: 25px}
+  }
+
+
+@keyframes showButton {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+.month-row__prince-table {
+    width: 100%;
+}
+
+.summary{
+    position: absolute;
+    bottom: 0;
+    left:0;
+    right:0;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    ;
+    
+}
+.summary__all{
+    padding: 10px;
+    box-sizing: border-box;
+
+    text-align: right;
+}
+
+@media screen and (min-width:980px) {
+    .month-row__col {
+        flex-basis: 49.5%;
+        background: rgba(0, 0, 0, 0.05);  
+    }
+
+    .summary__all{
+        flex-basis: 49.5%;
+        background: rgba(0, 0, 0, 0.05);
+    }    
+}
