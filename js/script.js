@@ -78,7 +78,7 @@ function getEntries() {
 
 function getEntriesPerMonth(date) {
 
-    return fetch(`${backendAPI}/${date}`)
+    return fetch(`${backendAPI}/month/${date}`)
         .then((response) => response.json())
         .then((entries) => {
             updateUI(entries);
