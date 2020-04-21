@@ -1,4 +1,4 @@
-var backendAPI = 'https://monthlystatement.herokuapp.com/';
+var backendAPI = 'https://monthlystatement.herokuapp.com';
 
 var costForm = document.querySelector('.header-cost-form');
 var reasonEl = document.querySelector('.header-cost-form__reason');
