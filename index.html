@@ -10,6 +10,16 @@
 
 <body>
     <header class="header container">
+        <div class="header-nav">
+            <div class="header-nav__logo-wrapper">
+                <h1 class="header-nav__logo">Monthly Statement</h1>
+            </div>
+            <ul class="header-nav__links">
+                <li class="header-nav__link">
+                    <button class="header-nav__logout input">Logout</button>
+                </li>
+            </ul>
+        </div>
         <form class="header-cost-form">
             <input type="date" class="header-cost-form__date input">
             <input class="header-cost-form__reason input" type="text" placeholder="Reason">
@@ -63,8 +73,13 @@
         <div class="summary__all summary__all--expenses">Loading</div>
         <div class="summary__all summary__all--incomes">Loading</div>
     </div>
-    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.7/auth0-spa-js.production.js"></script>
-    <script src="./js/script.js"></script>
+
+
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <script src="./js/firebase.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 
 </html>

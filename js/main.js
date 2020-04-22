@@ -1,4 +1,30 @@
+var mainApp = {};
 var backendAPI = 'https://monthlystatement.herokuapp.com';
+//var backendAPI = 'http://localhost:5000';
+
+
+(function setOnAuth() {
+    var firebase = app_firebase;
+
+    mainApp.uid = null;
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            // User is signed in.
+            mainApp.uid = user.uid;
+            getEntries();
+        } else {
+            mainApp.uid = null;
+            window.location.replace('login.html');
+        }
+    });
+
+    function logout() {
+        firebase.auth().signOut();
+    }
+
+    mainApp.logout = logout;
+})();
+
 
 var costForm = document.querySelector('.header-cost-form');
 var reasonEl = document.querySelector('.header-cost-form__reason');
@@ -6,6 +32,7 @@ var amountEl = document.querySelector('.header-cost-form__amount');
 var typeEl = document.querySelector('.header-cost-form__type');
 var dateEl = document.querySelector('.header-cost-form__date');
 var currencyEl = document.querySelector('.header-cost-form__currency');
+var logoutBtn = document.querySelector('.header-nav__logout');
 
 
 const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -13,13 +40,11 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
 
-getEntries();
 setCurrentDate();
 setCurrentMonth();
 setMonthToogleActions();
 
-
-
+logoutBtn.addEventListener('click', mainApp.logout);
 
 costForm.addEventListener('submit', function handleFormSubmit(e) {
     e.preventDefault();
@@ -30,30 +55,36 @@ costForm.addEventListener('submit', function handleFormSubmit(e) {
     var date = dateEl.value;
     var currency = currencyEl.value;
 
-    var newEntry = new createEntry(reason, amount, type, date, currency);
+    var newEntry = new createEntry(reason, amount, type, date, currency, mainApp.uid);
     addEntry(newEntry);
 })
 
-function createEntry(reason, amount, type, date, currency) {
+function createEntry(reason, amount, type, date, currency, uid) {
     this.reason = reason;
     this.amount = amount;
+    this.uid = uid;
     this.currency = currency;
     this.type = type;
     this.date = new Date(date);
 }
-
 
 function addEntry(newEntry) {
     fetch(backendAPI, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + mainApp.uid,
         },
         body: JSON.stringify(newEntry)
     })
         .then((response) => response.json())
         .then((data) => {
-            getEntries();
+            if (localStorage.getItem('month')) {
+                getEntriesPerMonth(localStorage.getItem('month'));
+            } else {
+                getEntries();
+            }
+
             crearForm();
         })
         .catch((error) => {
@@ -63,7 +94,12 @@ function addEntry(newEntry) {
 
 function getEntries() {
 
-    return fetch(backendAPI)
+    return fetch(backendAPI, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + mainApp.uid,
+        }
+    })
         .then((response) => response.json())
         .then((entries) => {
             updateUI(entries);
@@ -75,10 +111,13 @@ function getEntries() {
         })
 }
 
-
 function getEntriesPerMonth(date) {
 
-    return fetch(`${backendAPI}/month/${date}`)
+    return fetch(`${backendAPI}/month/${date}`, {
+        headers: {
+            'Authorization': 'Bearer ' + mainApp.uid,
+        }
+    })
         .then((response) => response.json())
         .then((entries) => {
             updateUI(entries);
@@ -95,11 +134,16 @@ function deleteEntry(entryId) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + mainApp.uid,
         }
     })
         .then((response) => response.json())
         .then((data) => {
-            getEntries();
+            if (localStorage.getItem('month')) {
+                getEntriesPerMonth(localStorage.getItem('month'));
+            } else {
+                getEntries();
+            }
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -141,7 +185,6 @@ function updateUI(entries) {
     var incomeTbody = document.querySelector('.month-row__col--incomes tbody');
     incomeTbody.innerHTML = "";
 
-
     appedToTable(expenseTableTrs, expenseTbody);
     appedToTable(incomeTableTrs, incomeTbody);
 
@@ -149,7 +192,6 @@ function updateUI(entries) {
     expenseSummary.textContent = calculateTotal(allExpenses);
     var incomeSummary = document.querySelector('.summary__all--incomes');
     incomeSummary.textContent = calculateTotal(allIncomes);
-
 }
 
 function crearForm() {
@@ -165,11 +207,8 @@ function appedToTable(entryNodeArr, parentNode) {
             parentNode.appendChild(entryNode);
         });
     } else {
-        var empty = document.createElement('tr');
-        empty.textContent = 'No Records'
-        parentNode.appendChild(empty);
+        parentNode.textContent = 'No Records';
     }
-
 }
 
 
@@ -195,9 +234,6 @@ function createTr(entry) {
     date.textContent = `${entryDate.getDate()} - ${monthNames[entryDate.getMonth()]} - ${entryDate.getFullYear()}`;
 
     dateTd.appendChild(date);
-
-
-
     dateTd.prepend(actions);
 
     var reasonTd = document.createElement("td");
@@ -229,7 +265,6 @@ function calculateTotal(entryArr) {
     } else {
         return 0;
     }
-
 }
 
 function addActions() {
@@ -292,5 +327,6 @@ function setMonthToogleActions() {
     var monthToggle = document.querySelector('.header-month-toogle__select');
     monthToggle.addEventListener('change', function getEntriesBasedOnMonth(e) {
         getEntriesPerMonth(e.target.value);
+        localStorage.setItem('month', JSON.stringify(e.target.value));
     })
 }

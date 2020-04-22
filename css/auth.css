@@ -1,0 +1,36 @@
+body{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+.auth-form-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-form__image{
+    max-width: 50px;
+    margin: 10px auto;
+}
+
+.auth-form{
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+}
+.auth-form__email{
+    margin-bottom: 10px;
+}
+
+.auth-form__auth{
+    margin-top: 40px;
+    background: black;
+    border: none;
+    color: white;
+    cursor: pointer;
+}

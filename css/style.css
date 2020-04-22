@@ -10,6 +10,25 @@
 .header{
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+.header-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-basis: 100%;
+    margin-bottom: 20px;
+}
+
+.header-nav__links{
+    list-style: none;
+}
+
+.header-nav__logout{
+    background: tomato;
+    cursor: pointer;
 }
 
 .header-cost-form {
@@ -36,6 +55,8 @@
 
 .input{
     padding: 10px 20px;
+    border: .5px solid black;
+    border-radius: 0;
 }
 
 .header-cost-form__submit{
