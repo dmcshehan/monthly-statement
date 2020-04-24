@@ -34,6 +34,8 @@ var dateEl = document.querySelector('.header-cost-form__date');
 var currencyEl = document.querySelector('.header-cost-form__currency');
 var logoutBtn = document.querySelector('.header-nav__logout');
 
+var notificationWrapper = document.querySelector('.notification');
+
 
 const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -102,9 +104,10 @@ function getEntries() {
     })
         .then((response) => response.json())
         .then((entries) => {
+            mainApp.entries = entries;
             updateUI(entries);
-            addActions();
             bindDeleteAction();
+            bindEditAction();
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -120,9 +123,37 @@ function getEntriesPerMonth(date) {
     })
         .then((response) => response.json())
         .then((entries) => {
+            mainApp.entries = entries;
             updateUI(entries);
-            addActions();
             bindDeleteAction();
+            bindEditAction();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        })
+}
+
+function updateEntry(data) {
+
+    console.log('data', JSON.stringify(data));
+
+    return fetch(`${backendAPI}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + mainApp.uid,
+        },
+        body: JSON.stringify(data)
+    })
+        .then((response) => response.json())
+        .then((response) => {
+            showNotification(response.message);
+
+            if (localStorage.getItem('month')) {
+                getEntriesPerMonth(localStorage.getItem('month'));
+            } else {
+                getEntries();
+            }
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -188,9 +219,9 @@ function updateUI(entries) {
     appedToTable(expenseTableTrs, expenseTbody);
     appedToTable(incomeTableTrs, incomeTbody);
 
-    var expenseSummary = document.querySelector('.summary__all--expenses');
+    var expenseSummary = document.querySelector('.month-row__total--allExpenses');
     expenseSummary.textContent = calculateTotal(allExpenses);
-    var incomeSummary = document.querySelector('.summary__all--incomes');
+    var incomeSummary = document.querySelector('.month-row__total--allIncomes');
     incomeSummary.textContent = calculateTotal(allIncomes);
 }
 
@@ -214,86 +245,193 @@ function appedToTable(entryNodeArr, parentNode) {
 
 function createTr(entry) {
     var entryDate = new Date(entry.date);
-
-    var dateTd = document.createElement("td");
-    var actions = document.createElement('span');
-    actions.setAttribute('class', 'month-row__actions');
-    actions.classList.add('month-row__actions--animate');
-
-
-    var del = document.createElement('button');
-    del.setAttribute('class', 'month-row__delete')
-    del.textContent = 'x';
-
-    actions.appendChild(del);
-
-
-    dateTd.setAttribute('class', 'month-row__td month-row__td--date')
-    var date = document.createElement('span');
-    date.setAttribute('class', 'month-row__date')
-    date.textContent = `${entryDate.getDate()} - ${monthNames[entryDate.getMonth()]} - ${entryDate.getFullYear()}`;
-
-    dateTd.appendChild(date);
-    dateTd.prepend(actions);
-
-    var reasonTd = document.createElement("td");
-    reasonTd.setAttribute('class', 'month-row__td month-row__td--reason')
-    reasonTd.textContent = entry.reason;
-
-    var amountTd = document.createElement("td");
-    amountTd.setAttribute('class', 'month-row__td month-row__td--amount')
-    amountTd.textContent = entry.amount;
-
-    var actionTd = document.createElement("td");
-    actionTd.setAttribute('class', 'month-row__td month-row__td--actions')
+    var formattedDate = `${(entryDate.getMonth() + 1) < 10 ? "0" + (entryDate.getMonth() + 1) : entryDate.getMonth() + 1}-${entryDate.getDate() < 10 ? "0" + entryDate.getDate() : entryDate.getDate()}-${entryDate.getFullYear()}`;
 
     var tr = document.createElement('tr');
     tr.setAttribute("id", entry._id);
     tr.setAttribute("class", 'month-row__tr');
-    tr.appendChild(dateTd);
-    tr.appendChild(reasonTd);
-    tr.appendChild(amountTd);
+
+    var trText = `<td class="month-row__td month-row__td--date">${formattedDate}</td>
+    <td class="month-row__td month-row__td--reason">${entry.reason}</td>
+    <td class="month-row__td month-row__td--amount">${entry.amount}</td>
+    <td class="month-row__td month-row__td--actions">
+        <button class="month-row__edit button">Edit</button>
+        <button class="month-row__delete button">Delete</button>
+    </td>`;
+
+    tr.innerHTML = trText;
 
     return tr;
 }
 
 function calculateTotal(entryArr) {
     if (entryArr.length > 0) {
-        return entryArr.reduce(function getTotal(acc, entry) {
+        var full = entryArr.reduce(function getTotal(acc, entry) {
             return acc + entry.amount
         }, 0)
+        return numberWithCommas(full);
     } else {
         return 0;
     }
 }
 
-function addActions() {
-    var trs = document.querySelectorAll('tbody tr');
-
-    trs.forEach(function bindListners(tr) {
-        tr.addEventListener('mouseover', function appeaarActions() {
-            this.firstChild.lastChild.classList.add('month-row__date--animate');
-            this.firstChild.firstChild.classList.add('month-row__actions--show');
-        })
-        tr.addEventListener('mouseout', function appeaarActions() {
-            this.firstChild.lastChild.classList.remove('month-row__date--animate');
-            this.firstChild.firstChild.classList.remove('month-row__actions--show');
-        })
-    })
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
 
 function bindDeleteAction() {
     var deleteButtons = document.querySelectorAll('.month-row__delete');
     deleteButtons.forEach(function bindDelete(button) {
         button.addEventListener('click', function deteleEntry() {
-            var entryId = this.parentNode.parentNode.parentNode.getAttribute('id');
+            var entryId = this.parentNode.parentNode.getAttribute('id');
 
-            var entryReason = this.parentNode.parentNode.nextSibling.textContent;
+            var entryReason = this.parentElement.parentElement.children[1].textContent;
 
             if (confirm(`Are you sure you want to delete "${entryReason}" ?`)) {
                 deleteEntry(entryId);
             }
             return;
+        })
+    })
+}
+
+function bindEditAction() {
+    mainApp.changedEntry = {};
+    var editButtons = document.querySelectorAll('.month-row__edit');
+    editButtons.forEach(function bindEdit(button) {
+        button.addEventListener('click', function editEntry() {
+
+
+            document.querySelectorAll('tbody td button').forEach(function disableAllButtons(btn) {
+                btn.setAttribute('disabled', true);
+            })
+
+
+            var entryId = this.parentNode.parentNode.getAttribute('id');
+            var entry = mainApp.entries.find(function findEntry(entry) {
+                return entry._id == entryId;
+            })
+
+            var inputDate = `${new Date(entry.date).getFullYear()}-${(new Date(entry.date).getMonth() + 1 < 10 ? "0" + (new Date(entry.date).getMonth() + 1) : new Date(entry.date).getMonth() + 1)}-${new Date(entry.date).getDate() < 10 ? "0" + new Date(entry.date).getDate() : new Date(entry.date).getDate()}`;
+
+            var selectedTr = this.parentElement.parentElement;
+            var children = selectedTr.children;
+
+
+            for (let i = 0; i < children.length; i++) {
+                children[i].style.display = 'none'
+            }
+
+
+            var newTdDate = document.createElement('td');
+            var newDateInput = document.createElement('input');
+            newDateInput.setAttribute('class', 'input');
+            newDateInput.addEventListener('change', function checkChanges(e) {
+
+                if (new Date(e.target.value).getTime() == new Date(entry.date).getTime()) {
+
+                    delete mainApp.changedEntry.date;
+                    return toogleDisableInSaveBtn(false);
+                }
+                mainApp.changedEntry.date = new Date(e.target.value);
+                toogleDisableInSaveBtn(true);
+
+            })
+            newDateInput.type = 'date';
+            newDateInput.value = inputDate;
+            newTdDate.appendChild(newDateInput);
+
+            var newTdReason = document.createElement('td');
+            var newReasonInput = document.createElement('input');
+            newReasonInput.setAttribute('class', 'input');
+
+            newReasonInput.addEventListener('input', function (e) {
+                if (e.target.value.trim() == entry.reason) {
+
+                    delete mainApp.changedEntry.reason;
+                    return toogleDisableInSaveBtn(false);
+                }
+
+                mainApp.changedEntry.reason = e.target.value.trim()
+                toogleDisableInSaveBtn(true);
+
+            })
+
+            newReasonInput.type = 'text';
+            newReasonInput.value = entry.reason;
+            newTdReason.appendChild(newReasonInput);
+
+            var newTdAmount = document.createElement('td');
+            var newAmountInput = document.createElement('input');
+            newAmountInput.setAttribute('class', 'input');
+
+            newAmountInput.addEventListener('input', function checkAmountChanges(e) {
+                if (Number(e.target.value) == Number(entry.amount)) {
+                    delete mainApp.changedEntry.amount;
+                    return toogleDisableInSaveBtn(false);
+                }
+
+                mainApp.changedEntry.amount = Number(e.target.value);
+                toogleDisableInSaveBtn(true);
+            });
+
+            newAmountInput.type = 'number';
+            newAmountInput.value = entry.amount;
+            newTdAmount.appendChild(newAmountInput);
+
+            var newTdActions = document.createElement('td');
+            var saveBtn = document.createElement('button');
+            saveBtn.classList.add('button');
+            saveBtn.classList.add('month-row__save');
+            saveBtn.setAttribute('disabled', true);
+            saveBtn.textContent = 'Save';
+            saveBtn.addEventListener('click', function cancelSaveEntry() {
+                var updatedEntry = mainApp.changedEntry;
+                updatedEntry._id = entry._id;
+                updateEntry(updatedEntry);
+            })
+
+            function toogleDisableInSaveBtn(disable, btn = saveBtn) {
+                if (disable) {
+                    return btn.removeAttribute('disabled');
+                }
+                return btn.setAttribute('disabled', true);
+            }
+
+
+            var cancelBtn = document.createElement('button');
+            cancelBtn.classList.add('button');
+            cancelBtn.classList.add('month-row__cancel');
+            cancelBtn.textContent = 'Cancel';
+            cancelBtn.addEventListener('click', function cancelSaveEntry() {
+                document.querySelectorAll('tbody td button').forEach(function disableAllButtons(btn) {
+                    btn.removeAttribute('disabled');
+                })
+
+
+                for (let i = 0; i < children.length; i++) {
+                    if (children[i].style.display == 'none') {
+                        if (children[i].classList.contains('month-row__td--actions')) {
+                            children[i].style.display = 'flex'
+                        } else {
+                            children[i].style.display = 'table-cell'
+                        }
+
+                    } else {
+                        children[i].style.display = 'none'
+                    }
+                }
+            })
+
+            newTdActions.appendChild(saveBtn);
+            newTdActions.appendChild(cancelBtn);
+
+            selectedTr.prepend(newTdActions);
+            selectedTr.prepend(newTdAmount);
+            selectedTr.prepend(newTdReason);
+            selectedTr.prepend(newTdDate);
+
         })
     })
 }
@@ -319,7 +457,9 @@ function setCurrentMonth() {
     }
     var thisYear = now.getFullYear();
     var yearAndMonth = `${thisYear}-${thisMonth}`;
-    document.querySelector('.header-month-toogle__select').value = yearAndMonth;
+    var monthToggle = document.querySelector('.header-month-toogle__select');
+
+    monthToggle.value = yearAndMonth;
 }
 
 
@@ -329,4 +469,39 @@ function setMonthToogleActions() {
         getEntriesPerMonth(e.target.value);
         localStorage.setItem('month', JSON.stringify(e.target.value));
     })
+}
+
+
+function hideNotification() {
+    this.parentElement.parentElement.style.display = 'none';
+}
+
+function showNotification(message, error) {
+
+    var notoficationHTML = `
+        <div class="notification__text-wrapper">
+            <p class="notification__text">${message}</p>
+        </div>
+        <div class="notification__close-wrapper">
+            <button class="notification__close">x</button>
+        </div>
+    `;
+
+    var notificationItem = document.createElement('div');
+    notificationItem.setAttribute('class', "notification__item");
+    notificationItem.classList.add(error ? 'notification__item--error' : 'notification__item--success');
+    notificationItem.innerHTML = notoficationHTML;
+
+    notificationWrapper.appendChild(notificationItem);
+
+    var allCloseBtns = document.querySelectorAll('.notification__close');
+    allCloseBtns.forEach(function bindClose(closeBtn) {
+        closeBtn.addEventListener('click', hideNotification);
+    })
+
+    if (!error) {
+        setTimeout(function hideNotification() {
+            notificationItem.style.display = 'none';
+        }, 1000)
+    }
 }
