@@ -7,7 +7,7 @@ module.exports = {
 	mode: 'development',
 	entry: {
 		main: './src/js/main.js',
-		firebaseui: './src/js/firebaseui.js',
+		firebaseui: './src/js/firebase/firebaseui.js',
 	},
 	output: {
 		filename: '[name].js',

@@ -7,76 +7,130 @@
     <title>Monthly Statement</title>
 </head>
 
-<body>
-    <header class="header container">
-        <div class="header-nav">
-            <div class="header-nav__logo-wrapper">
-                <h1 class="header-nav__logo">Monthly Statement</h1>
-            </div>
-            <ul class="header-nav__links">
-                <li class="header-nav__link">
-                    <button class="header-nav__logout input">Logout</button>
-                </li>
-            </ul>
-        </div>
-        <form class="header-cost-form">
-            <input type="date" class="header-cost-form__date input">
-            <input class="header-cost-form__reason input" type="text" placeholder="Reason">
-            <input class="header-cost-form__amount input" type="text" placeholder="cost">
-            <select class="header-cost-form__currency input">
-                <option value="LKR">LKR</option>
-                <option value="EUR">EUR</option>
-            </select>
-            <select class="header-cost-form__type input">
-                <option value="expense">Expense</option>
-                <option value="income">Income</option>
-            </select>
-            <input class="header-cost-form__submit input" type="submit" placeholder="Reason">
-        </form>
-        <div class="header-month-toogle">
-            <input type="month" class="header-month-toogle__select input">
-        </div>
+<body class="dashboard">
+    <header>
+        <div class="container">
+            <nav class="navbar" role="navigation" area-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="https://bulma.io">
+                        <h2 class="title is-4">Monthly Statement</h2>
+                    </a>
 
+                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                        data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="navbar-menu">
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                <a href="#" class="button is-danger is-small is-rounded is-outlined">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </header>
 
+    <section class="tools">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-half">
+                    <input type="month" class="header-month-toogle__select input">
 
-    </div>
-    <div class="month-row container">
-        <div class="month-row__col month-row__col--expenses">
-            <div class="month-tow__total-wrapper">
-                <h3 class="month-row__month">Expenses</h3>
-                <div class="month-row__total month-row__total--allExpenses">Loading</div>
+                </div>
             </div>
-
-            <table class="month-row__prince-table">
-                <thead>
-                    <tr>
-                        <th class="month-row__th">Date</th>
-                        <th class="month-row__th">Reason</th>
-                        <th class="month-row__th month-row__th--amount">Amount</th>
-                        <th class="month-row__th month-row__th--actions">Actions</th>
-                    </tr>
-                </thead>
-                <tbody />
-            </table>
         </div>
-        <div class="month-row__col month-row__col--incomes">
-            <div class="month-tow__total-wrapper">
-                <h3 class="month-row__month">Incomes</h3>
-                <div class="month-row__total month-row__total--allIncomes">Loading</div>
-            </div>
+    </section>
 
-            <table class="month-row__prince-table">
-                <thead>
-                    <tr>
-                        <th class="month-row__th">Date</th>
-                        <th class="month-row__th">Reason</th>
-                        <th class="month-row__th month-row__th--amount">Amount</th>
-                        <th class="month-row__th month-row__th--actions">Actions</th>
-                    </tr>
-                </thead>
-                <tbody />
-            </table>
+
+    <section>
+        <div class="container">
+            <div class="columns">
+                <div class="column is-half">
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                Expenses
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="tag is-primary is-medium">10000</span>
+                            </a>
+                        </header>
+                        <div class="card-content">
+                            <table class="table is-fullwidth is-hoverable">
+                                <thead>
+                                    <tr>
+                                        <th class="">Date</th>
+                                        <th class="">Reason</th>
+                                        <th class="">Amount</th>
+                                        <th class="">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody />
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-half">
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                Incomes
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="tag is-primary is-medium">10000</span>
+                            </a>
+                        </header>
+                        <div class="card-content">
+                            <table class="table is-fullwidth is-hoverable">
+                                <thead>
+                                    <tr>
+                                        <th class="">Date</th>
+                                        <th class="">Reason</th>
+                                        <th class="">Amount</th>
+                                        <th class="">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody />
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Modal title</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <form class="header-cost-form">
+                    <input type="date" class="header-cost-form__date input">
+                    <input class="header-cost-form__reason input" type="text" placeholder="Reason">
+                    <input class="header-cost-form__amount input" type="text" placeholder="cost">
+                    <select class="header-cost-form__currency input">
+                        <option value="LKR">LKR</option>
+                        <option value="EUR">EUR</option>
+                    </select>
+                    <select class="header-cost-form__type input">
+                        <option value="expense">Expense</option>
+                        <option value="income">Income</option>
+                    </select>
+                    <input class="header-cost-form__submit input" type="submit" placeholder="Reason">
+                </form>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success">Save changes</button>
+                <button class="button">Cancel</button>
+            </footer>
         </div>
     </div>
     <div class="notification">
