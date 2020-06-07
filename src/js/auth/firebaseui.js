@@ -1,6 +1,8 @@
 import firebase from './firebase';
 import * as firebaseui from 'firebaseui';
 
+import '../../../node_modules/firebaseui/dist/firebaseui.css';
+
 // Initialize the FirebaseUI Widget using Firebase.
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 

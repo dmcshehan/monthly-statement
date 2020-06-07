@@ -7,10 +7,10 @@ module.exports = {
 	mode: 'development',
 	entry: {
 		main: './src/js/main.js',
-		firebaseui: './src/js/firebase/firebaseui.js',
+		firebaseui: './src/js/auth/firebaseui.js',
 	},
 	output: {
-		filename: '[name].js',
+		filename: 'js/[name].js',
 		path: path.resolve(__dirname, 'dist'),
 	},
 	module: {
@@ -30,6 +30,7 @@ module.exports = {
 	plugins: [
 		new MiniCssExtractPlugin({
 			filename: 'css/[name].css',
+			chunkFilename: '[id].css',
 		}),
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
