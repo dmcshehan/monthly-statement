@@ -1,6 +1,6 @@
 import axios from '../shared/axios.js';
 
-function fetEntries(idToken, callback) {
+function featchEntriesForCurrentMonth(idToken, callback) {
 	axios({
 		method: 'get',
 		url: '/',
@@ -16,4 +16,4 @@ function fetEntries(idToken, callback) {
 		});
 }
 
-export default fetEntries;
+export default featchEntriesForCurrentMonth;

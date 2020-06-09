@@ -1,23 +1,20 @@
 import firebase from './auth/firebase.js';
+import store from './store/index.js';
 import '../scss/main.scss';
 
-import fetchEntries from './crud/featchEntries.js';
+import { fetchEntriesOfCurrentMonth } from './store/actionCreators/entry.js';
+import { createTableEntries } from './uiUpdates.js';
 
 firebase.auth().onAuthStateChanged(function (user) {
 	if (user) {
-		const currentUser = firebase.auth().currentUser;
-
-		currentUser
-			.getIdToken(/* forceRefresh */ true)
-			.then(function (idToken) {
-				fetchEntries(idToken, (entries) => {
-					console.log(entries);
-				});
-			})
-			.catch(function (error) {
-				// Handle error
-			});
+		fetchEntriesOfCurrentMonth();
 	} else {
 		window.location = 'index.html';
 	}
+});
+
+store.subscribe(() => {
+	const currentState = store.getState();
+	const entries = currentState.entry.entries;
+	createTableEntries(entries);
 });
