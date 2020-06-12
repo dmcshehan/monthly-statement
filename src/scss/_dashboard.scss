@@ -7,6 +7,12 @@ $main-darker: #c4c4c4;
 		background-color: $main-light;
 		.navbar {
 			background-color: transparent;
+			.navbar-dropdown {
+				padding: 0 !important;
+			}
+			.navbar-divider {
+				margin: 0 !important;
+			}
 		}
 	}
 

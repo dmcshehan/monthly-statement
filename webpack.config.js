@@ -14,9 +14,9 @@ module.exports = {
 		filename: 'js/[name].js',
 		path: path.resolve(__dirname, 'dist'),
 	},
-	devServer: {
-		hot: true,
-	},
+	// devServer: {
+	// 	hot: true,
+	// },
 	module: {
 		rules: [
 			{
@@ -42,7 +42,7 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new webpack.HotModuleReplacementPlugin(),
+		//new webpack.HotModuleReplacementPlugin(),
 		new MiniCssExtractPlugin({
 			filename: 'css/[name].css',
 			chunkFilename: '[id].css',

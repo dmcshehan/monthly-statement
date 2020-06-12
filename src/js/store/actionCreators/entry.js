@@ -64,6 +64,28 @@ function addEntry() {
 	});
 }
 
+function deleteEntry(entryId) {
+	getIdTokenOfCurrentUser((idToken) => {
+		axios({
+			method: 'delete',
+			url: '/',
+			headers: {
+				Authorization: 'Bearer ' + idToken,
+			},
+			data: {
+				entryId,
+			},
+		})
+			.then(function (response) {
+				console.log(response);
+				fetchEntriesOfCurrentMonth();
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	});
+}
+
 function setCurrentlyBeignEdited(entryId) {
 	dispatch({
 		type: SET_CURRENTLY_BEIGN_EDITED,
@@ -116,4 +138,5 @@ export {
 	editCurrentlyBeignAdded,
 	addEntry,
 	clearCurrentlyBeignAdded,
+	deleteEntry,
 };
