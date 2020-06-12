@@ -9,7 +9,7 @@ export default function createEntryRow({ date, reason, amount, _id }) {
 			? `<tr>
             <td>
                 <input 
-                    class="input" 
+                    class="input is-small" 
                     type="date" 
                     name="date"
                     placeholder="Text input" 
@@ -18,7 +18,7 @@ export default function createEntryRow({ date, reason, amount, _id }) {
             </td>
             <td>
                 <input 
-                    class="input" 
+                    class="input is-small" 
                     type="text" 
                     name="reason"
                     placeholder="Text input" 
@@ -27,7 +27,7 @@ export default function createEntryRow({ date, reason, amount, _id }) {
             </td>
             <td>
                 <input 
-                    class="input" 
+                    class="input is-small" 
                     type="text" 
                     name="amount"
                     placeholder="Text input" 
@@ -37,12 +37,12 @@ export default function createEntryRow({ date, reason, amount, _id }) {
             </td>
             <td>
                 <div class="buttons action-buttons" id="${_id}">
-                    <button class="button is-danger" data-button-type="cancel">
+                    <button class="button is-danger is-small" data-button-type="cancel">
                         <span class="icon">
                             <i class="fas fa-times"></i>
                         </span>
                     </button>
-                    <button class="button is-success" data-button-type="save">
+                    <button class="button is-success is-small" data-button-type="save">
                         <span class="icon">
                             <i class="far fa-save"></i>
                         </span>
@@ -51,17 +51,17 @@ export default function createEntryRow({ date, reason, amount, _id }) {
             </td>
         </tr>`
 			: `<tr>
-            <td>${moment(date).format('DD-MM-YYYY')}</td>
+            <td>${moment(date).format('YYYY-MM-DD')}</td>
             <td>${reason}</td>
             <td>${amount}</td>
             <td>
                 <div class="buttons action-buttons" id="${_id}">
-                    <button class="button is-warning" data-button-type="edit">
+                    <button class="button is-warning is-small" data-button-type="edit">
                         <span class="icon">
                             <i class="far fa-edit"></i>
                         </span>
                     </button>
-                    <button class="button is-danger" data-button-type="delete">
+                    <button class="button is-danger is-small" data-button-type="delete">
                         <span class="icon">
                             <i class="far fa-trash-alt"></i>
                         </span>

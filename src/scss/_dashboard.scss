@@ -1,8 +1,117 @@
+$main-light: #f8f8f8;
+$main-dark: #f0f0f0;
+$main-darker: #c4c4c4;
+
 .dashboard {
+	header {
+		background-color: $main-light;
+		.navbar {
+			background-color: transparent;
+		}
+	}
+
+	.entry-section {
+		margin-top: 20px;
+
+		.card {
+			background-color: $main-light;
+			.card-header {
+				background-color: $main-dark;
+				.card-header-icon {
+					.tag {
+						background-color: $main-darker;
+						color: white;
+						font-weight: 900;
+					}
+				}
+			}
+
+			.table {
+				background-color: transparent;
+				tr {
+					td {
+						.buttons.action-buttons {
+							min-width: 68px;
+						}
+						.buttons-hide {
+							display: none;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	.tools {
 		margin: 20px 0;
+
+		#entry-add-form {
+			.content {
+				margin-bottom: 5px;
+			}
+
+			background-color: $main-dark;
+			padding: 10px;
+
+			form {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: center;
+
+				.field {
+					flex-basis: 19%;
+					margin-bottom: 0;
+					.select {
+						width: 100%;
+						select {
+							width: 100%;
+						}
+					}
+
+					.button {
+						width: 100%;
+					}
+				}
+			}
+		}
+
+		#month-toggler {
+			.content {
+				margin-bottom: 5px;
+			}
+			background-color: $main-dark;
+			padding: 10px;
+		}
 	}
-	.buttons-hide {
-		display: none;
+
+	//model at the end of the page
+	#addEntryModel {
+		.modal-card-title {
+			font-size: 16px;
+			font-weight: bold;
+		}
+		form {
+			.field {
+				.select {
+					width: 100%;
+					select {
+						width: 100%;
+					}
+				}
+
+				.button {
+					width: 100%;
+					margin-top: 10px;
+				}
+			}
+		}
+	}
+
+	//add entry model toggler button
+	#add-entry-button {
+		position: fixed;
+		right: 20px;
+		bottom: 20px;
 	}
 }

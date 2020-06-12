@@ -1,19 +1,40 @@
+//AUTH
 import firebase from './auth/firebase.js';
+
+//REDUX
 import store from './store/index.js';
+
+//STYLES
 import '../scss/main.scss';
 import '../../node_modules/@fortawesome/fontawesome-free/js/all.js';
 
 import { fetchEntriesOfCurrentMonth } from './store/actionCreators/entry.js';
-import { createTableEntries } from './uiUpdates.js';
-import {
-	addClickHandlersToTableActionButtons,
-	addOnChangeHandlersToTableInputs,
-	setFocusOnPrevioslyChangeInput,
-} from './uiHandlers.js';
+import { setAuthedUser } from './store/actionCreators/user.js';
+
+//-------------------- UI --------------------//
+//Table
+import createTableEntries from './ui/table/createTableEntries.js';
+import addClickHandlersToTableActionButtons from './ui/table/addClickHandlersToTableActionButtons.js';
+import addOnChangeHandlersToTableInputs from './ui/table/addOnChangeHandlersToTableInputs.js';
+import setFocusOnPrevioslyChangeInput from './ui/table/setFocusOnPrevioslyChangeInput.js';
+
+//NavBar
+import updateNavbarUserName from './ui/navbar/updateNavbarUserName.js';
+
+//Add Entry Button
+import handleAddEntryButtonClick from './ui/addEntryButton/handleAddEntryButtonClick.js';
+
+//Model
+import addCloseHandlerToModel from './ui/addEntryModel/addCloseHandlerToModel.js';
+import updateDateOfAddEntryModel from './ui/addEntryModel/updateDateOfAddEntryModel.js';
+
+//Auth
+import addLogoutHandler from './auth/addLogoutHandler.js';
 
 firebase.auth().onAuthStateChanged(function (user) {
 	if (user) {
-		fetchEntriesOfCurrentMonth();
+		setAuthedUser(user);
+		doOnlyOnceAtTheBegining();
 	} else {
 		window.location = 'index.html';
 	}
@@ -22,9 +43,25 @@ firebase.auth().onAuthStateChanged(function (user) {
 store.subscribe(() => {
 	const currentState = store.getState();
 
-	//function pipe
 	createTableEntries(currentState);
 	addClickHandlersToTableActionButtons();
 	addOnChangeHandlersToTableInputs();
 	setFocusOnPrevioslyChangeInput(currentState);
 });
+
+function doOnlyOnceAtTheBegining() {
+	/**** only one time is enough *****/
+	//Table
+	fetchEntriesOfCurrentMonth();
+
+	//Model
+	handleAddEntryButtonClick();
+	addCloseHandlerToModel();
+	updateDateOfAddEntryModel();
+
+	//Auth
+	addLogoutHandler();
+
+	//Navbar
+	updateNavbarUserName();
+}

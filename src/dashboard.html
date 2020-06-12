@@ -12,8 +12,8 @@
         <div class="container">
             <nav class="navbar" role="navigation" area-label="main navigation">
                 <div class="navbar-brand">
-                    <a class="navbar-item" href="https://bulma.io">
-                        <h2 class="title is-4">Monthly Statement</h2>
+                    <a class="navbar-item" href="dashboard.html">
+                        <h2 class="title is-5">Monthly Statement</h2>
                     </a>
 
                     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
@@ -25,9 +25,22 @@
                 </div>
                 <div class="navbar-menu">
                     <div class="navbar-end">
-                        <div class="navbar-item">
-                            <div class="buttons">
-                                <a href="#" class="button is-danger is-small is-rounded is-outlined">Logout</a>
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link username"></a>
+                            <div class="navbar-dropdown is-right">
+                                <a class="navbar-item">
+                                    Overview
+                                </a>
+                                <a class="navbar-item">
+                                    Elements
+                                </a>
+                                <a class="navbar-item">
+                                    Components
+                                </a>
+                                <hr class="navbar-divider">
+                                <a id="logout" class="navbar-item">
+                                    Logout
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -39,30 +52,34 @@
     <section class="tools">
         <div class="container">
             <div class="columns">
-                <div class="column is-half">
-                    <input type="month" class="header-month-toogle__select input">
-
+                <div class="column is-one-fifth">
+                    <div id="month-toggler">
+                        <div class="content is-small">
+                            Toggle Month
+                        </div>
+                        <input type="month" class="input is-small">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
 
-    <section>
+    <section class="entry-section">
         <div class="container">
             <div class="columns">
                 <div class="column is-half">
-                    <div class="card">
+                    <div class="card card-expense">
                         <header class="card-header">
                             <p class="card-header-title">
                                 Expenses
                             </p>
-                            <a href="#" class="card-header-icon" aria-label="more options">
-                                <span class="tag is-primary is-medium">10000</span>
-                            </a>
+                            <span class="card-header-icon" aria-label="more options">
+                                <span class="tag">10000</span>
+                            </span>
                         </header>
                         <div class="card-content">
-                            <table id="expensesTable" class="table is-fullwidth is-hoverable">
+                            <table id="expensesTable" class="table is-fullwidth is-hoverable content is-small">
                                 <thead>
                                     <tr>
                                         <th class="">Date</th>
@@ -77,17 +94,17 @@
                     </div>
                 </div>
                 <div class="column is-half">
-                    <div class="card">
+                    <div class="card card-income">
                         <header class="card-header">
                             <p class="card-header-title">
                                 Incomes
                             </p>
-                            <a href="#" class="card-header-icon" aria-label="more options">
-                                <span class="tag is-primary is-medium">10000</span>
-                            </a>
+                            <span class="card-header-icon" aria-label="more options">
+                                <span class="tag">10000</span>
+                            </span>
                         </header>
                         <div class="card-content">
-                            <table id="incomesTable" class="table is-fullwidth is-hoverable">
+                            <table id="incomesTable" class="table is-fullwidth is-hoverable content is-small">
                                 <thead>
                                     <tr>
                                         <th class="">Date</th>
@@ -133,9 +150,64 @@
             </footer>
         </div>
     </div>
-    <div class="notification">
 
+    <!-- Offset Elements -->
+
+    <div id="addEntryModel" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+
+            <header class="modal-card-head">
+                <p class="modal-card-title">Add an Entry</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <form action="">
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label content is-small">Date</label>
+                        <div class="control">
+                            <input id="entry-date" class="input is-small" name="date" type="date">
+                        </div>
+                    </div>
+                    <label class="label content is-small">Reason</label>
+                    <div class="field">
+                        <div class="control">
+                            <input class="input is-small" name="reason" type="text" placeholder="Enter the reason">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label content is-small">Amount</label>
+                        <div class="control">
+                            <input class="input is-small" name="amount" type="text" placeholder="Enter the amount">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label content is-small">Extense Type</label>
+                        <div class="control">
+                            <div class="select is-small">
+                                <select name="type">
+                                    <option selected>Expense</option>
+                                    <option>Income</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-small">Add Entry</button>
+                        </div>
+                    </div>
+                </section>
+            </form>
+        </div>
     </div>
+
+    <button id="add-entry-button" class="button is-medium is-success">
+        <span class="icon is-medium">
+            <i class="fas fa-plus"></i>
+        </span>
+    </button>
+
 </body>
 
 </html>

@@ -1,7 +1,7 @@
-import categorizeEntries from './helpers/categorizeEntries.js';
-import createEntryRow from './helpers/ui/createEntryRow.js';
+import categorizeEntries from './categorizeEntries.js';
+import createEntryRow from './createEntryRow.js';
 
-function createTableEntries(currentState) {
+export default function createTableEntries(currentState) {
 	const { entries } = currentState.entry;
 
 	let expenseRows = '',
@@ -23,5 +23,3 @@ function createTableEntries(currentState) {
 	const incomeTbody = document.querySelector('#incomesTable tbody');
 	incomeTbody.innerHTML = incomeRows;
 }
-
-export { createTableEntries };

@@ -1,24 +1,15 @@
-@import '~bulma/sass/utilities/_all';
-@import '~bulma/sass/base/_all';
-@import '~bulma/sass/grid/_all';
-@import '~bulma/sass/layout/_all';
+$modal-background-background-color: rgba(0, 0, 0, 0.5) !important;
+$radius: 0 !important;
+$card-shadow: none;
+$card-header-shadow: none;
+$table-cell-border: none;
+$card-content-padding: 5px;
+$card-header-padding: 10px;
+$navbar-dropdown-radius: 0;
+$navbar-dropdown-boxed-shadow: none !important;
 
-//Elements
-@import '~bulma/sass/elements/title';
-@import '~bulma/sass/elements/button';
-@import '~bulma/sass/elements/container';
-@import '~bulma/sass/elements/tag';
-@import '~bulma/sass/elements/title';
-@import '~bulma/sass/elements/other';
-@import '~bulma/sass/elements/table';
+$modal-card-head-radius: 0;
+$modal-card-foot-radius: 0;
+$modal-content-width: 400px;
 
-//Components
-@import '~bulma/sass/components/navbar';
-@import '~bulma/sass/components/card';
-@import '~bulma/sass/components/modal';
-@import '~bulma/sass/elements/title';
-
-//form
-@import '~bulma/sass/form/all';
-
-//@import '~bulma/bulma';
+@import '~bulma/bulma';
