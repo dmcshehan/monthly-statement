@@ -161,40 +161,53 @@
                 <p class="modal-card-title">Add an Entry</p>
                 <button class="delete" aria-label="close"></button>
             </header>
-            <form action="">
+            <form>
                 <section class="modal-card-body">
                     <div class="field">
                         <label class="label content is-small">Date</label>
                         <div class="control">
-                            <input id="entry-date" class="input is-small" name="date" type="date">
+                            <input id="entry-date" class="input is-small" name="date" type="date" required>
                         </div>
                     </div>
                     <label class="label content is-small">Reason</label>
                     <div class="field">
                         <div class="control">
-                            <input class="input is-small" name="reason" type="text" placeholder="Enter the reason">
+                            <input class="input is-small" name="reason" type="text" placeholder="Enter the reason"
+                                required>
                         </div>
                     </div>
                     <div class="field">
-                        <label class="label content is-small">Amount</label>
+                        <label class="la==bel content is-small">Amount</label>
                         <div class="control">
-                            <input class="input is-small" name="amount" type="text" placeholder="Enter the amount">
+                            <input class="input is-small" name="amount" type="number" placeholder="Enter the amount"
+                                required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="la==bel content is-small">Amount</label>
+                        <div class="control">
+                            <div class="select is-small">
+                                <select name="currency" required>
+                                    <option value="LKR">Sri Lankan Rupees</option>
+                                    <option value="EUR">Euro</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label content is-small">Extense Type</label>
                         <div class="control">
                             <div class="select is-small">
-                                <select name="type">
-                                    <option selected>Expense</option>
-                                    <option>Income</option>
+                                <select name="type" required>
+                                    <option value="expense">Expense</option>
+                                    <option value="income">Income</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="field">
                         <div class="control">
-                            <button class="button is-small">Add Entry</button>
+                            <input class="button is-small" type="submit" value="Add Entry">
                         </div>
                     </div>
                 </section>

@@ -2,7 +2,17 @@ import store from '../index.js';
 import axios from '../../shared/axios.js';
 
 import getIdTokenOfCurrentUser from '../../auth/getIdTokenOfCurrentUser.js';
-import { FETCH_CURRENT_MONTH_ENTRIES_SUCCESS } from '../actiontypes/entry.js';
+
+import closeModel from '../../ui/addEntryModel/closeModel.js';
+
+import {
+	FETCH_CURRENT_MONTH_ENTRIES_SUCCESS,
+	SET_CURRENTLY_BEIGN_EDITED,
+	CLEAR_CURRENTLY_BEIGN_EDITED,
+	EDI_CURRENTLY_BEIGN_EDITED,
+	EDIT_CURRENTLY_BEIGN_ADDED,
+	CLEAR_CURRENTLY_BEIGN_ADDED,
+} from '../actiontypes/entry.js';
 
 const { dispatch } = store;
 
@@ -29,4 +39,81 @@ function fetchEntriesOfCurrentMonth() {
 	});
 }
 
-export { fetchEntriesOfCurrentMonth };
+function addEntry() {
+	getIdTokenOfCurrentUser((idToken) => {
+		axios({
+			method: 'post',
+			url: '/',
+			data: {
+				...store.getState().entry.currentlyBeignAdded,
+			},
+			headers: {
+				Authorization: 'Bearer ' + idToken,
+			},
+		})
+			.then(function (response) {
+				if (response.status === 201) {
+					closeModel();
+					clearCurrentlyBeignAdded();
+					fetchEntriesOfCurrentMonth();
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	});
+}
+
+function setCurrentlyBeignEdited(entryId) {
+	dispatch({
+		type: SET_CURRENTLY_BEIGN_EDITED,
+		payload: {
+			entryId,
+		},
+	});
+}
+
+function clearCurrentlyBeignEdited(entryId) {
+	dispatch({
+		type: CLEAR_CURRENTLY_BEIGN_EDITED,
+		payload: {
+			entryId,
+		},
+	});
+}
+
+function editCurrentlyBeignEdited(key, value) {
+	dispatch({
+		type: EDI_CURRENTLY_BEIGN_EDITED,
+		payload: {
+			key,
+			value,
+		},
+	});
+}
+
+function editCurrentlyBeignAdded(key, value) {
+	dispatch({
+		type: EDIT_CURRENTLY_BEIGN_ADDED,
+		payload: {
+			key,
+			value,
+		},
+	});
+}
+
+function clearCurrentlyBeignAdded() {
+	dispatch({
+		type: CLEAR_CURRENTLY_BEIGN_ADDED,
+	});
+}
+
+export {
+	fetchEntriesOfCurrentMonth,
+	setCurrentlyBeignEdited,
+	clearCurrentlyBeignEdited,
+	editCurrentlyBeignEdited,
+	editCurrentlyBeignAdded,
+	addEntry,
+	clearCurrentlyBeignAdded,
+};

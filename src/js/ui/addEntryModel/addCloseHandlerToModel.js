@@ -1,7 +1,6 @@
+import closeModel from './closeModel.js';
+
 export default function addCloseHandlerToModel() {
-	function closeModel() {
-		document.querySelector('#addEntryModel').classList.remove('is-active');
-	}
 	document
 		.querySelector('#addEntryModel .modal-card-head button.delete')
 		.addEventListener('click', closeModel);

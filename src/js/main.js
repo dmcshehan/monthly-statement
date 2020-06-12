@@ -26,7 +26,9 @@ import handleAddEntryButtonClick from './ui/addEntryButton/handleAddEntryButtonC
 
 //Model
 import addCloseHandlerToModel from './ui/addEntryModel/addCloseHandlerToModel.js';
-import updateDateOfAddEntryModel from './ui/addEntryModel/updateDateOfAddEntryModel.js';
+import setAddEntryModelValues from './ui/addEntryModel/setAddEntryModelValues.js';
+import addSubmitHandlerToAddEntryForm from './ui/addEntryModel/addSubmitHandlerToAddEntryForm.js';
+import addEventHandlersToModelFormInputs from './ui/addEntryModel/addEventHandlersToModelFormInputs.js';
 
 //Auth
 import addLogoutHandler from './auth/addLogoutHandler.js';
@@ -47,6 +49,9 @@ store.subscribe(() => {
 	addClickHandlersToTableActionButtons();
 	addOnChangeHandlersToTableInputs();
 	setFocusOnPrevioslyChangeInput(currentState);
+
+	//resetting values of add entry model (Experiemtal)
+	setAddEntryModelValues();
 });
 
 function doOnlyOnceAtTheBegining() {
@@ -57,7 +62,8 @@ function doOnlyOnceAtTheBegining() {
 	//Model
 	handleAddEntryButtonClick();
 	addCloseHandlerToModel();
-	updateDateOfAddEntryModel();
+	addEventHandlersToModelFormInputs();
+	addSubmitHandlerToAddEntryForm();
 
 	//Auth
 	addLogoutHandler();
