@@ -16,6 +16,19 @@ import {
 
 const { dispatch } = store;
 
+// Return Functions
+
+function onclearCurrentlyBeignEdited(entryId) {
+	return {
+		type: CLEAR_CURRENTLY_BEIGN_EDITED,
+		payload: {
+			entryId,
+		},
+	};
+}
+
+// end return functions
+
 function fetchEntriesOfCurrentMonth() {
 	getIdTokenOfCurrentUser((idToken) => {
 		axios({
@@ -64,6 +77,30 @@ function addEntry() {
 	});
 }
 
+function updateEntry(entryId) {
+	getIdTokenOfCurrentUser((idToken) => {
+		axios({
+			method: 'put',
+			url: '/',
+			headers: {
+				Authorization: 'Bearer ' + idToken,
+			},
+			data: {
+				updatedEntry: store.getState().entry.currentlyBeignEdited,
+			},
+		})
+			.then(function (response) {
+				if (response.status === 204) {
+					fetchEntriesOfCurrentMonth();
+					dispatch(onclearCurrentlyBeignEdited());
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	});
+}
+
 function deleteEntry(entryId) {
 	getIdTokenOfCurrentUser((idToken) => {
 		axios({
@@ -96,12 +133,7 @@ function setCurrentlyBeignEdited(entryId) {
 }
 
 function clearCurrentlyBeignEdited(entryId) {
-	dispatch({
-		type: CLEAR_CURRENTLY_BEIGN_EDITED,
-		payload: {
-			entryId,
-		},
-	});
+	dispatch(onclearCurrentlyBeignEdited(entryId));
 }
 
 function editCurrentlyBeignEdited(key, value) {
@@ -139,4 +171,5 @@ export {
 	addEntry,
 	clearCurrentlyBeignAdded,
 	deleteEntry,
+	updateEntry,
 };

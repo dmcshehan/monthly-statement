@@ -24,8 +24,12 @@ const uiConfig = {
 	signInFlow: 'popup',
 	signInSuccessUrl: 'dashboard.html',
 	signInOptions: [
+		// can be added scopes for each object
 		{
 			provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+		},
+		{
+			provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
 		},
 	],
 	// Terms of service url.

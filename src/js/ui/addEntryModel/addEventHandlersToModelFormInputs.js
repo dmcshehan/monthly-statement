@@ -2,9 +2,10 @@ import { editCurrentlyBeignAdded } from '../../store/actionCreators/entry.js';
 
 export default function addOnChangeHandlersToModelFormInputs() {
 	const allInputs = document.querySelectorAll('#addEntryModel form input:not([type=submit])');
-	const selectElement = document.querySelector('#addEntryModel form select');
+	const selectElement = document.querySelectorAll('#addEntryModel form select');
 
-	[...allInputs, selectElement].forEach((element) => {
+	[...allInputs, ...selectElement].forEach((element) => {
+		console.log(element, element.type);
 		if (element.type === 'date' || element.type === 'select-one') {
 			element.addEventListener('change', function (e) {
 				const key = e.target.name,

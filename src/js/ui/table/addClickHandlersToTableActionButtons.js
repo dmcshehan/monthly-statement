@@ -2,6 +2,7 @@ import {
 	setCurrentlyBeignEdited,
 	clearCurrentlyBeignEdited,
 	deleteEntry,
+	updateEntry,
 } from '../../store/actionCreators/entry.js';
 
 export default function addClickHandlersToTableActionButtons() {
@@ -22,6 +23,9 @@ export default function addClickHandlersToTableActionButtons() {
 						break;
 					case 'delete':
 						deleteEntry(entryId);
+						break;
+					case 'save':
+						updateEntry();
 						break;
 					default:
 						break;

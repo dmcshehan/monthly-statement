@@ -7,6 +7,14 @@ $main-darker: #c4c4c4;
 		background-color: $main-light;
 		.navbar {
 			background-color: transparent;
+			.navbar-end {
+				.navbar-link.username {
+					.user-avatar {
+						border-radius: 100%;
+						margin-right: 10px;
+					}
+				}
+			}
 			.navbar-dropdown {
 				padding: 0 !important;
 			}
