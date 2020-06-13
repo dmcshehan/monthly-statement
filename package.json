@@ -33,6 +33,7 @@
 		"firebaseui": "4.5.0",
 		"immer": "6.0.9",
 		"moment": "2.26.0",
-		"redux": "4.0.5"
+		"redux": "4.0.5",
+		"redux-persist": "6.0.0"
 	}
 }

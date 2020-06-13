@@ -8,8 +8,50 @@
 </head>
 
 <body>
-    <div id="firebaseui-auth-container"></div>
-    <div id="loader">Loading...</div>
+    <header>
+        <div class="container">
+            <nav class="navbar" role="navigation" area-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="dashboard.html">
+                        <h2 class="title is-5">Monthly Statement</h2>
+                    </a>
+
+                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                        data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="navbar-menu">
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero is-fullheight-with-navbar">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-two-third">
+                        <h1 class="title is-1">Track Your Expenses & Incomes</h1>
+                        <div class="content">
+                            <ul>
+                                <li>Add / Remove/ Update Expenses</li>
+                                <li>Add / Remove/ Update Incomes</li>
+                                <li>Monthly Summary</li>
+                                <li>Seperate Views For each Month</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="column is-one-third login-column">
+                        <div id="firebaseui-auth-container"></div>
+                        <div id="loader">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>

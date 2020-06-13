@@ -1,4 +1,4 @@
-import store from '../index.js';
+import { store } from '../index.js';
 
 import { SET_AUTHEDUSER, LOGOUT } from '../actiontypes/user.js';
 

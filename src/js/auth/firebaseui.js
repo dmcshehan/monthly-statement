@@ -1,5 +1,7 @@
 import firebase from './firebase';
 import * as firebaseui from 'firebaseui';
+import '../../scss/home.scss';
+
 
 import '../../../node_modules/firebaseui/dist/firebaseui.css';
 

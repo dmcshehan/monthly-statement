@@ -2,10 +2,10 @@
 import firebase from './auth/firebase.js';
 
 //REDUX
-import store from './store/index.js';
+import { store } from './store/index.js';
 
 //STYLES
-import '../scss/main.scss';
+import '../scss/dashboard.scss';
 import '../../node_modules/@fortawesome/fontawesome-free/js/all.js';
 
 import { fetchEntriesOfCurrentMonth } from './store/actionCreators/entry.js';
@@ -20,6 +20,7 @@ import setFocusOnPrevioslyChangeInput from './ui/table/setFocusOnPrevioslyChange
 
 //NavBar
 import updateNavbarUserName from './ui/navbar/updateNavbarUserName.js';
+import updateNavbarAvatar from './ui/navbar/updateNavbarAvatar.js';
 
 //Add Entry Button
 import handleAddEntryButtonClick from './ui/addEntryButton/handleAddEntryButtonClick.js';
@@ -70,4 +71,5 @@ function doOnlyOnceAtTheBegining() {
 
 	//Navbar
 	updateNavbarUserName();
+	updateNavbarAvatar();
 }

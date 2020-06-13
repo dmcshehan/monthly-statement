@@ -1,5 +1,5 @@
 import moment from 'moment';
-import store from '../../store/index.js';
+import { store } from '../../store/index.js';
 
 export default function createEntryRow({ date, reason, amount, _id }) {
 	const { currentlyBeignEdited } = store.getState().entry;

@@ -1,3 +1,6 @@
+@import './bulma';
+
+
 $main-light: #f8f8f8;
 $main-dark: #f0f0f0;
 $main-darker: #c4c4c4;
@@ -43,9 +46,15 @@ $main-darker: #c4c4c4;
 			.table {
 				background-color: transparent;
 				tr {
+					th {
+						&.actions {
+							text-align: center;
+						}
+					}
 					td {
 						.buttons.action-buttons {
 							min-width: 68px;
+							justify-content: center;
 						}
 						.buttons-hide {
 							display: none;
