@@ -1,9 +1,7 @@
 @import './bulma';
-
-
-$main-light: #f8f8f8;
-$main-dark: #f0f0f0;
-$main-darker: #c4c4c4;
+@import './variables';
+@import './mixins';
+@import './base.scss';
 
 .dashboard {
 	header {
@@ -27,9 +25,14 @@ $main-darker: #c4c4c4;
 		}
 	}
 
-	.entry-section {
-		margin-top: 20px;
+	.menu-column {
+		margin-left: -25px;
+		padding-left: 32px;
+		background-color: $main-light;
+		min-height: calc(100vh - 52px);
+	}
 
+	.entry-section {
 		.card {
 			background-color: $main-light;
 			.card-header {
@@ -52,12 +55,41 @@ $main-darker: #c4c4c4;
 						}
 					}
 					td {
+						padding-bottom: 12px;
 						.buttons.action-buttons {
-							min-width: 68px;
+							min-width: 95px;
 							justify-content: center;
+							align-items: center;
+
+							.button {
+								font-size: 10px;
+								font-weight: 700;
+								padding: 5px !important;
+								height: 18px !important;
+							}
 						}
 						.buttons-hide {
 							display: none;
+						}
+
+						.select {
+							&:after {
+								top: 42% !important;
+							}
+							select {
+								height: 24px;
+								padding: 0 30px 0 10px;
+							}
+						}
+
+						input {
+							height: 24px !important;
+							&.date {
+								max-width: 135px;
+							}
+							&.amount {
+								max-width: 90px;
+							}
 						}
 					}
 				}
@@ -66,45 +98,43 @@ $main-darker: #c4c4c4;
 	}
 
 	.tools {
-		margin: 20px 0;
-
-		#entry-add-form {
-			.content {
-				margin-bottom: 5px;
-			}
-
+		#month-toggler {
 			background-color: $main-dark;
+		}
+
+		.card {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			height: 100%;
 			padding: 10px;
 
-			form {
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: space-between;
-				align-items: center;
-
-				.field {
-					flex-basis: 19%;
-					margin-bottom: 0;
-					.select {
-						width: 100%;
-						select {
-							width: 100%;
-						}
-					}
-
-					.button {
-						width: 100%;
-					}
-				}
+			.card-title {
+				text-transform: uppercase;
+				margin-bottom: 10px;
+				font-size: 12px;
 			}
 		}
 
-		#month-toggler {
-			.content {
-				margin-bottom: 5px;
+		.visualizations {
+			.card {
+				background-color: $main-light;
+
+				.single {
+					display: flex;
+					align-items: center;
+					width: 100%;
+				}
+
+				.progress {
+					margin-bottom: 5px;
+				}
+				.progress-title {
+					flex-basis: 150px;
+					@include small-text-font-styles;
+					text-transform: uppercase;
+				}
 			}
-			background-color: $main-dark;
-			padding: 10px;
 		}
 	}
 
@@ -125,7 +155,12 @@ $main-darker: #c4c4c4;
 
 				.button {
 					width: 100%;
-					margin-top: 10px;
+				}
+			}
+			.modal-card-foot {
+				padding: 20px;
+				.field {
+					width: 100%;
 				}
 			}
 		}

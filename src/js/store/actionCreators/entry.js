@@ -7,11 +7,13 @@ import closeModel from '../../ui/addEntryModel/closeModel.js';
 
 import {
 	FETCH_CURRENT_MONTH_ENTRIES_SUCCESS,
+	FETCH_SPECIFIC_MONTH_ENTRIES_SUCCESS,
 	SET_CURRENTLY_BEIGN_EDITED,
 	CLEAR_CURRENTLY_BEIGN_EDITED,
 	EDI_CURRENTLY_BEIGN_EDITED,
 	EDIT_CURRENTLY_BEIGN_ADDED,
 	CLEAR_CURRENTLY_BEIGN_ADDED,
+	TOGGLE_CURRENT_MONTH,
 } from '../actiontypes/entry.js';
 
 const { dispatch } = store;
@@ -23,6 +25,15 @@ function onclearCurrentlyBeignEdited(entryId) {
 		type: CLEAR_CURRENTLY_BEIGN_EDITED,
 		payload: {
 			entryId,
+		},
+	};
+}
+
+function onGetEntriesForASpecificMonthSuccess(entries) {
+	return {
+		type: FETCH_SPECIFIC_MONTH_ENTRIES_SUCCESS,
+		payload: {
+			entries,
 		},
 	};
 }
@@ -123,6 +134,30 @@ function deleteEntry(entryId) {
 	});
 }
 
+function getEntriesForASpecificMonth(month) {
+	console.log(month);
+	getIdTokenOfCurrentUser((idToken) => {
+		axios({
+			method: 'get',
+			url: '/month',
+			headers: {
+				Authorization: 'Bearer ' + idToken,
+			},
+			params: {
+				month,
+			},
+		})
+			.then(function (response) {
+				var entries = response.data;
+				dispatch(onGetEntriesForASpecificMonthSuccess(entries));
+				dispatch(onToggleCurrentMonthSuccess(month));
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	});
+}
+
 function setCurrentlyBeignEdited(entryId) {
 	dispatch({
 		type: SET_CURRENTLY_BEIGN_EDITED,
@@ -162,6 +197,15 @@ function clearCurrentlyBeignAdded() {
 	});
 }
 
+function onToggleCurrentMonthSuccess(month) {
+	return {
+		type: TOGGLE_CURRENT_MONTH,
+		payload: {
+			month,
+		},
+	};
+}
+
 export {
 	fetchEntriesOfCurrentMonth,
 	setCurrentlyBeignEdited,
@@ -172,4 +216,5 @@ export {
 	clearCurrentlyBeignAdded,
 	deleteEntry,
 	updateEntry,
+	getEntriesForASpecificMonth,
 };

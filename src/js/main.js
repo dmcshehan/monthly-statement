@@ -34,6 +34,10 @@ import addEventHandlersToModelFormInputs from './ui/addEntryModel/addEventHandle
 //Auth
 import addLogoutHandler from './auth/addLogoutHandler.js';
 
+//MonthToggler
+import handleMonthToggle from './ui/monthToggler/handleMonthToggle.js';
+import setTogglerMonth from './ui/monthToggler/setTogglerMonth.js';
+
 firebase.auth().onAuthStateChanged(function (user) {
 	if (user) {
 		setAuthedUser(user);
@@ -53,6 +57,9 @@ store.subscribe(() => {
 
 	//resetting values of add entry model (Experiemtal)
 	setAddEntryModelValues();
+
+	//only needed when the toggler month changed
+	setTogglerMonth();
 });
 
 function doOnlyOnceAtTheBegining() {
@@ -72,4 +79,7 @@ function doOnlyOnceAtTheBegining() {
 	//Navbar
 	updateNavbarUserName();
 	updateNavbarAvatar();
+
+	//MonthToggler
+	handleMonthToggle();
 }

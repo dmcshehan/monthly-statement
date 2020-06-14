@@ -1,0 +1,36 @@
+body {
+	//font-family: 'Muli', sans-serif;
+	font-family: 'Varela Round', sans-serif;
+}
+
+.card {
+	border-radius: 5px;
+
+	.card-header {
+		border-radius: 5px;
+	}
+}
+
+.navbar {
+	.navbar-item {
+		@include regular-text-font-styles;
+	}
+}
+
+.columns {
+	margin-top: 0 !important;
+}
+
+.menu {
+	.menu-label {
+		font-size: 10px;
+	}
+	.menu-list {
+		li {
+			@include regular-text-font-styles;
+			a {
+				padding: 0.5em;
+			}
+		}
+	}
+}

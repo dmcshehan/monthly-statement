@@ -1,15 +1,14 @@
 $modal-background-background-color: rgba(0, 0, 0, 0.5) !important;
-$radius: 0 !important;
+$radius: 5px !important;
 $card-shadow: none;
 $card-header-shadow: none;
 $table-cell-border: none;
 $card-content-padding: 5px;
 $card-header-padding: 10px;
-$navbar-dropdown-radius: 0;
+// $navbar-dropdown-radius: 0;
 $navbar-dropdown-boxed-shadow: none !important;
 
-$modal-card-head-radius: 0;
-$modal-card-foot-radius: 0;
+$modal-card-head-radius: 5px;
+$modal-card-foot-radius: 5px;
 $modal-content-width: 400px;
-
 @import '~bulma/bulma';

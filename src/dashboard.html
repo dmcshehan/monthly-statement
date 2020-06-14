@@ -9,7 +9,7 @@
 
 <body class="dashboard">
     <header>
-        <div class="container">
+        <div class="container is-fluid">
             <nav class="navbar" role="navigation" area-label="main navigation">
                 <div class="navbar-brand">
                     <a class="navbar-item" href="dashboard.html">
@@ -43,108 +43,127 @@
         </div>
     </header>
 
-    <section class="tools">
-        <div class="container">
+    <section>
+        <div class="container is-fluid">
             <div class="columns">
-                <div class="column is-four-fifth"></div>
-                <div class="column is-one-fifth">
-                    <div id="month-toggler">
-                        <div class="content is-small">
-                            Toggle Month
+                <div class="column is-2 menu-column">
+                    <aside class="menu">
+                        <p class="menu-label">
+                            General
+                        </p>
+                        <ul class="menu-list">
+                            <li><a>Dashboard</a></li>
+                        </ul>
+                    </aside>
+                </div>
+                <div class="column">
+                    <section class="tools">
+                        <div class="container">
+                            <div class="columns">
+                                <div class="column is-2">
+                                    <div id="month-toggler" class="card">
+                                        <span class="card-title">Toggle Month</span>
+                                        <input type="month" class="input is-small">
+                                    </div>
+                                </div>
+                                <div class="column is-2">
+                                    <div class="card total-expenses amount-card has-background-danger">
+                                        <span class="card-title has-text-white">Total Expense</span>
+                                        <div class="title is-4 amount has-text-white">50000</div>
+                                    </div>
+                                </div>
+                                <div class="column is-2">
+                                    <div class="card total-income amount-card has-background-success">
+                                        <span class="card-title has-text-white">Total Income</span>
+                                        <div class="title is-4 amount has-text-white">50000</div>
+                                    </div>
+                                </div>
+                                <div class="column is-half visualizations">
+                                    <div class="card">
+                                        <div class="single">
+                                            <span class="progress-title">Total Expenses</span>
+                                            <progress class="progress is-danger is-small" value="75"
+                                                max="100">75%</progress>
+                                        </div>
+                                        <div class="single">
+                                            <span class="progress-title">Total Income</span>
+                                            <progress class="progress is-success is-small" value="90"
+                                                max="100">90%</progress>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <input type="month" class="input is-small">
-                    </div>
+                    </section>
+
+                    <section class="entry-section">
+                        <div class="container">
+                            <div class="columns">
+                                <div class="column is-half">
+                                    <div class="card card-expense">
+                                        <header class="card-header">
+                                            <p class="card-header-title">
+                                                Expenses
+                                            </p>
+                                            <span class="card-header-icon" aria-label="more options">
+                                                <span id="full-expense-amount" class="tag">10000</span>
+                                            </span>
+                                        </header>
+                                        <div class="card-content">
+                                            <table id="expensesTable"
+                                                class="table is-fullwidth is-hoverable content is-small">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="">Date</th>
+                                                        <th class="">Reason</th>
+                                                        <th class="">Currency</th>
+                                                        <th class="">Amount</th>
+                                                        <th class="actions">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column is-half">
+                                    <div class="card card-income">
+                                        <header class="card-header">
+                                            <p class="card-header-title">
+                                                Incomes
+                                            </p>
+                                            <span class="card-header-icon" aria-label="more options">
+                                                <span id="full-income-amount" class="tag">10000</span>
+                                            </span>
+                                        </header>
+                                        <div class="card-content">
+                                            <table id="incomesTable"
+                                                class="table is-fullwidth is-hoverable content is-small">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="">Date</th>
+                                                        <th class="">Reason</th>
+                                                        <th class="">Currency</th>
+                                                        <th class="">Amount</th>
+                                                        <th class="actions">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>
     </section>
 
 
-    <section class="entry-section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-half">
-                    <div class="card card-expense">
-                        <header class="card-header">
-                            <p class="card-header-title">
-                                Expenses
-                            </p>
-                            <span class="card-header-icon" aria-label="more options">
-                                <span class="tag">10000</span>
-                            </span>
-                        </header>
-                        <div class="card-content">
-                            <table id="expensesTable" class="table is-fullwidth is-hoverable content is-small">
-                                <thead>
-                                    <tr>
-                                        <th class="">Date</th>
-                                        <th class="">Reason</th>
-                                        <th class="">Amount</th>
-                                        <th class="actions">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-half">
-                    <div class="card card-income">
-                        <header class="card-header">
-                            <p class="card-header-title">
-                                Incomes
-                            </p>
-                            <span class="card-header-icon" aria-label="more options">
-                                <span class="tag">10000</span>
-                            </span>
-                        </header>
-                        <div class="card-content">
-                            <table id="incomesTable" class="table is-fullwidth is-hoverable content is-small">
-                                <thead>
-                                    <tr>
-                                        <th class="">Date</th>
-                                        <th class="">Reason</th>
-                                        <th class="">Amount</th>
-                                        <th class="actions">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="modal">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Modal title</p>
-                <button class="delete" aria-label="close"></button>
-            </header>
-            <section class="modal-card-body">
-                <form class="header-cost-form">
-                    <input type="date" class="header-cost-form__date input">
-                    <input class="header-cost-form__reason input" type="text" placeholder="Reason">
-                    <input class="header-cost-form__amount input" type="text" placeholder="cost">
-                    <select class="header-cost-form__currency input">
-                        <option value="LKR">LKR</option>
-                        <option value="EUR">EUR</option>
-                    </select>
-                    <select class="header-cost-form__type input">
-                        <option value="expense">Expense</option>
-                        <option value="income">Income</option>
-                    </select>
-                    <input class="header-cost-form__submit input" type="submit" placeholder="Reason">
-                </form>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-success">Save changes</button>
-                <button class="button">Cancel</button>
-            </footer>
-        </div>
-    </div>
+
+
 
     <!-- Offset Elements -->
 
@@ -172,14 +191,14 @@
                         </div>
                     </div>
                     <div class="field">
-                        <label class="la==bel content is-small">Amount</label>
+                        <label class="label content is-small">Amount</label>
                         <div class="control">
                             <input class="input is-small" name="amount" type="number" placeholder="Enter the amount"
                                 required>
                         </div>
                     </div>
                     <div class="field">
-                        <label class="la==bel content is-small">Amount</label>
+                        <label class="label content is-small">Amount</label>
                         <div class="control">
                             <div class="select is-small">
                                 <select name="currency" required>
@@ -200,17 +219,20 @@
                             </div>
                         </div>
                     </div>
+
+                </section>
+                <footer class="modal-card-foot">
                     <div class="field">
                         <div class="control">
-                            <input class="button is-small" type="submit" value="Add Entry">
+                            <input class="button is-small is-success" type="submit" value="Add Entry">
                         </div>
                     </div>
-                </section>
+                </footer>
             </form>
         </div>
     </div>
 
-    <button id="add-entry-button" class="button is-medium is-success">
+    <button id="add-entry-button" class="button is-success">
         <span class="icon is-medium">
             <i class="fas fa-plus"></i>
         </span>

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { store } from '../../store/index.js';
 
-export default function createEntryRow({ date, reason, amount, _id }) {
+export default function createEntryRow({ date, reason, amount, _id, currency }) {
 	const { currentlyBeignEdited } = store.getState().entry;
 
 	const row =
@@ -9,7 +9,7 @@ export default function createEntryRow({ date, reason, amount, _id }) {
 			? `<tr>
             <td>
                 <input 
-                    class="input is-small" 
+                    class="input is-small date" 
                     type="date" 
                     name="date"
                     placeholder="Text input" 
@@ -26,8 +26,17 @@ export default function createEntryRow({ date, reason, amount, _id }) {
                 />
             </td>
             <td>
+                <div class="select is-small">
+                    <select name="currency" required>
+                        <option value="LKR">LKR</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                    </select>
+                </div>
+            </td>
+            <td>
                 <input 
-                    class="input is-small" 
+                    class="input is-small amount" 
                     type="text" 
                     name="amount"
                     placeholder="Text input" 
@@ -38,33 +47,26 @@ export default function createEntryRow({ date, reason, amount, _id }) {
             <td>
                 <div class="buttons action-buttons" id="${_id}">
                     <button class="button is-danger is-small" data-button-type="cancel">
-                        <span class="icon">
-                            <i class="fas fa-times"></i>
-                        </span>
+                        Cancel
                     </button>
                     <button class="button is-success is-small" data-button-type="save">
-                        <span class="icon">
-                            <i class="far fa-save"></i>
-                        </span>
+                        Save
                     </button>
                 </div>
             </td>
         </tr>`
 			: `<tr>
-            <td>${moment(date).format('YYYY-MM-DD')}</td>
+            <td>${moment(date).format('YY-MM-DD')}</td>
             <td>${reason}</td>
+            <td>${currency}</td>
             <td>${amount}</td>
             <td>
                 <div class="buttons action-buttons" id="${_id}">
                     <button class="button is-warning is-small" data-button-type="edit">
-                        <span class="icon">
-                            <i class="far fa-edit"></i>
-                        </span>
+                        Edit  
                     </button>
                     <button class="button is-danger is-small" data-button-type="delete">
-                        <span class="icon">
-                            <i class="far fa-trash-alt"></i>
-                        </span>
+                        Delete
                     </button>
                 </div>
             </td>

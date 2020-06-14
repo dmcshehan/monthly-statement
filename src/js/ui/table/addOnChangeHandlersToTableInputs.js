@@ -2,8 +2,9 @@ import { editCurrentlyBeignEdited } from '../../store/actionCreators/entry.js';
 
 export default function addOnChangeHandlersToTableInputs() {
 	const tableInputs = document.querySelectorAll('.dashboard table tbody input');
-	tableInputs.forEach((tableInput) => {
-		if (tableInput.type == 'date') {
+	const selectInputs = document.querySelectorAll('.dashboard table tbody select');
+	[...tableInputs, ...selectInputs].forEach((tableInput) => {
+		if (tableInput.type == 'date' || tableInput.type == 'select-one') {
 			tableInput.addEventListener('change', function () {
 				const prop = this.name,
 					value = this.value;

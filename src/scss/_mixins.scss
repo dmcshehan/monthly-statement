@@ -1,0 +1,7 @@
+@mixin regular-text-font-styles {
+	font-size: $normal-text-font-size;
+}
+
+@mixin small-text-font-styles {
+	font-size: $small-text-font-size;
+}

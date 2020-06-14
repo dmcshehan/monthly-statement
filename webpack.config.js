@@ -14,9 +14,6 @@ module.exports = {
 		filename: 'js/[name].js',
 		path: path.resolve(__dirname, 'dist'),
 	},
-	// devServer: {
-	// 	hot: true,
-	// },
 	module: {
 		rules: [
 			{
@@ -30,22 +27,22 @@ module.exports = {
 				},
 			},
 			{
-				test: /\.(sa|sc|c)ss$$/,
-				use: [
-					{
-						loader: MiniCssExtractPlugin.loader,
-					},
-					'css-loader',
-					'sass-loader',
-				],
+				test: /\.(sa|sc|c)ss$/,
+				use: [MiniCssExtractPlugin.loader, 'css-loader?url=false', 'sass-loader'],
+			},
+			{
+				test: /\.(png|jpe?g|gif)$/i,
+				loader: 'file-loader',
+				options: {
+					name: '[name].[ext]',
+					outputPath: 'images',
+				},
 			},
 		],
 	},
 	plugins: [
-		//new webpack.HotModuleReplacementPlugin(),
 		new MiniCssExtractPlugin({
 			filename: 'css/[name].css',
-			chunkFilename: '[id].css',
 		}),
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
