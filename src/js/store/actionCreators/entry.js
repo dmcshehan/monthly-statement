@@ -3,16 +3,14 @@ import axios from '../../shared/axios.js';
 
 import getIdTokenOfCurrentUser from '../../auth/getIdTokenOfCurrentUser.js';
 
-import closeModel from '../../ui/addEntryModel/closeModel.js';
+import closeModel from '../../ui/Model/closeEntryModel';
+import resetEntryModelValues from '../../ui/Model/resetEntryModalValues';
 
 import {
 	FETCH_CURRENT_MONTH_ENTRIES_SUCCESS,
 	FETCH_SPECIFIC_MONTH_ENTRIES_SUCCESS,
 	SET_CURRENTLY_BEIGN_EDITED,
 	CLEAR_CURRENTLY_BEIGN_EDITED,
-	EDI_CURRENTLY_BEIGN_EDITED,
-	EDIT_CURRENTLY_BEIGN_ADDED,
-	CLEAR_CURRENTLY_BEIGN_ADDED,
 	TOGGLE_CURRENT_MONTH,
 } from '../actiontypes/entry.js';
 
@@ -63,13 +61,13 @@ function fetchEntriesOfCurrentMonth() {
 	});
 }
 
-function addEntry() {
+function addEntry(entryObj) {
 	getIdTokenOfCurrentUser((idToken) => {
 		axios({
 			method: 'post',
 			url: '/',
 			data: {
-				...store.getState().entry.currentlyBeignAdded,
+				...entryObj,
 			},
 			headers: {
 				Authorization: 'Bearer ' + idToken,
@@ -77,9 +75,9 @@ function addEntry() {
 		})
 			.then(function (response) {
 				if (response.status === 201) {
-					closeModel();
-					clearCurrentlyBeignAdded();
 					fetchEntriesOfCurrentMonth();
+					closeModel();
+					resetEntryModelValues();
 				}
 			})
 			.catch(function (error) {
@@ -88,7 +86,7 @@ function addEntry() {
 	});
 }
 
-function updateEntry(entryId) {
+function updateEntry(updatedEntry) {
 	getIdTokenOfCurrentUser((idToken) => {
 		axios({
 			method: 'put',
@@ -97,13 +95,15 @@ function updateEntry(entryId) {
 				Authorization: 'Bearer ' + idToken,
 			},
 			data: {
-				updatedEntry: store.getState().entry.currentlyBeignEdited,
+				updatedEntry,
 			},
 		})
 			.then(function (response) {
 				if (response.status === 204) {
 					fetchEntriesOfCurrentMonth();
 					dispatch(onclearCurrentlyBeignEdited());
+					closeModel();
+					resetEntryModelValues();
 				}
 			})
 			.catch(function (error) {
@@ -171,32 +171,6 @@ function clearCurrentlyBeignEdited(entryId) {
 	dispatch(onclearCurrentlyBeignEdited(entryId));
 }
 
-function editCurrentlyBeignEdited(key, value) {
-	dispatch({
-		type: EDI_CURRENTLY_BEIGN_EDITED,
-		payload: {
-			key,
-			value,
-		},
-	});
-}
-
-function editCurrentlyBeignAdded(key, value) {
-	dispatch({
-		type: EDIT_CURRENTLY_BEIGN_ADDED,
-		payload: {
-			key,
-			value,
-		},
-	});
-}
-
-function clearCurrentlyBeignAdded() {
-	dispatch({
-		type: CLEAR_CURRENTLY_BEIGN_ADDED,
-	});
-}
-
 function onToggleCurrentMonthSuccess(month) {
 	return {
 		type: TOGGLE_CURRENT_MONTH,
@@ -210,10 +184,7 @@ export {
 	fetchEntriesOfCurrentMonth,
 	setCurrentlyBeignEdited,
 	clearCurrentlyBeignEdited,
-	editCurrentlyBeignEdited,
-	editCurrentlyBeignAdded,
 	addEntry,
-	clearCurrentlyBeignAdded,
 	deleteEntry,
 	updateEntry,
 	getEntriesForASpecificMonth,

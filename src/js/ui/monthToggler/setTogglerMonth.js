@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { store } from '../../store/index.js';
 
-export default function setTogglerMonth() {
+export default () => {
 	var { currentMonth } = store.getState().entry;
 
 	var toggler = document.querySelector('#month-toggler input');
@@ -11,4 +11,4 @@ export default function setTogglerMonth() {
 	}
 
 	toggler.value = moment().format('YYYY-MM');
-}
+};

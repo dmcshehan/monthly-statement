@@ -5,7 +5,11 @@ import {
 	updateEntry,
 } from '../../store/actionCreators/entry.js';
 
-export default function addClickHandlersToTableActionButtons() {
+import openEntryModel from '../Model/openEntryModel.js';
+import setEntryModelValues from '../Model/setEntryModelValues.js';
+import makeUpdateForm from '../Model/makeUpdateForm';
+
+export default () => {
 	const actionsButtons = document.querySelectorAll('.dashboard table tbody .action-buttons .button');
 
 	actionsButtons.forEach((actionButton) => {
@@ -16,16 +20,13 @@ export default function addClickHandlersToTableActionButtons() {
 			if (entryId) {
 				switch (buttonType) {
 					case 'edit':
+						makeUpdateForm();
 						setCurrentlyBeignEdited(entryId);
-						break;
-					case 'cancel':
-						clearCurrentlyBeignEdited();
+						setEntryModelValues();
+						openEntryModel();
 						break;
 					case 'delete':
 						deleteEntry(entryId);
-						break;
-					case 'save':
-						updateEntry();
 						break;
 					default:
 						break;
@@ -33,4 +34,4 @@ export default function addClickHandlersToTableActionButtons() {
 			}
 		});
 	});
-}
+};

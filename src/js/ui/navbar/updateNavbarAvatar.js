@@ -1,20 +1,14 @@
 import { store } from '../../store/index.js';
 
-export default function updateNavbarAvatar() {
+export default () => {
 	const { photoURL } = store.getState().user.authedUser;
 	const navBarUsername = document.querySelector('.navbar-end .username');
 
-	let avatar;
-
 	if (photoURL) {
-		avatar = document.createElement('img');
+		const avatar = document.createElement('img');
+		avatar.classList.add('user-avatar');
 		avatar.src = photoURL;
-	} else {
-		avatar = document.createElement('i');
-		avatar.classList.add('far');
-		avatar.classList.add('fa-user-circle');
+		navBarUsername.prepend(avatar);
 	}
-
-	avatar.classList.add('user-avatar');
-	navBarUsername.prepend(avatar);
-}
+	return;
+};

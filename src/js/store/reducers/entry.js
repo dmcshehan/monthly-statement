@@ -3,10 +3,7 @@ import {
 	FETCH_CURRENT_MONTH_ENTRIES_SUCCESS,
 	FETCH_SPECIFIC_MONTH_ENTRIES_SUCCESS,
 	SET_CURRENTLY_BEIGN_EDITED,
-	EDI_CURRENTLY_BEIGN_EDITED,
 	CLEAR_CURRENTLY_BEIGN_EDITED,
-	EDIT_CURRENTLY_BEIGN_ADDED,
-	CLEAR_CURRENTLY_BEIGN_ADDED,
 	TOGGLE_CURRENT_MONTH,
 } from '../actiontypes/entry.js';
 import produce from 'immer';
@@ -39,24 +36,8 @@ function entryReducer(state = initialState, action) {
 			case SET_CURRENTLY_BEIGN_EDITED:
 				draftState.currentlyBeignEdited = state.entries.find((entry) => entry._id === payload.entryId);
 				break;
-			case EDI_CURRENTLY_BEIGN_EDITED:
-				draftState.currentlyBeignEdited[payload.key] = payload.value;
-				draftState.lastChangedProp = payload.key;
-				break;
 			case CLEAR_CURRENTLY_BEIGN_EDITED:
 				draftState.currentlyBeignEdited = '';
-				break;
-			case EDIT_CURRENTLY_BEIGN_ADDED:
-				draftState.currentlyBeignAdded[payload.key] = payload.value;
-				break;
-			case CLEAR_CURRENTLY_BEIGN_ADDED:
-				draftState.currentlyBeignAdded = {
-					date: moment().format('YYYY-MM-DD'),
-					reason: '',
-					amount: '',
-					currency: 'LKR',
-					type: 'expense',
-				};
 				break;
 			case TOGGLE_CURRENT_MONTH:
 				draftState.currentMonth = payload.month;

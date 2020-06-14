@@ -4,34 +4,6 @@
 @import './base.scss';
 
 .dashboard {
-	header {
-		background-color: $main-light;
-		.navbar {
-			background-color: transparent;
-			.navbar-end {
-				.navbar-link.username {
-					.user-avatar {
-						border-radius: 100%;
-						margin-right: 10px;
-					}
-				}
-			}
-			.navbar-dropdown {
-				padding: 0 !important;
-			}
-			.navbar-divider {
-				margin: 0 !important;
-			}
-		}
-	}
-
-	.menu-column {
-		margin-left: -25px;
-		padding-left: 32px;
-		background-color: $main-light;
-		min-height: calc(100vh - 52px);
-	}
-
 	.entry-section {
 		.card {
 			background-color: $main-light;
@@ -68,36 +40,13 @@
 								height: 18px !important;
 							}
 						}
-						.buttons-hide {
-							display: none;
-						}
-
-						.select {
-							&:after {
-								top: 42% !important;
-							}
-							select {
-								height: 24px;
-								padding: 0 30px 0 10px;
-							}
-						}
-
-						input {
-							height: 24px !important;
-							&.date {
-								max-width: 135px;
-							}
-							&.amount {
-								max-width: 90px;
-							}
-						}
 					}
 				}
 			}
 		}
 	}
 
-	.tools {
+	.visualizations {
 		#month-toggler {
 			background-color: $main-dark;
 		}
@@ -116,7 +65,7 @@
 			}
 		}
 
-		.visualizations {
+		.progressbars {
 			.card {
 				background-color: $main-light;
 
@@ -124,13 +73,23 @@
 					display: flex;
 					align-items: center;
 					width: 100%;
+
+					progress {
+						margin-bottom: 0;
+					}
+
+					.goal {
+						@include small-text-font-styles;
+						flex-basis: 180px;
+						text-align: right;
+					}
 				}
 
 				.progress {
 					margin-bottom: 5px;
 				}
 				.progress-title {
-					flex-basis: 150px;
+					flex-basis: 180px;
 					@include small-text-font-styles;
 					text-transform: uppercase;
 				}
@@ -139,7 +98,7 @@
 	}
 
 	//model at the end of the page
-	#addEntryModel {
+	#entryModel {
 		.modal-card-title {
 			font-size: 16px;
 			font-weight: bold;
@@ -152,15 +111,22 @@
 						width: 100%;
 					}
 				}
-
-				.button {
-					width: 100%;
-				}
 			}
 			.modal-card-foot {
 				padding: 20px;
 				.field {
 					width: 100%;
+					margin-bottom: 0;
+				}
+
+				.update-field {
+					.buttons {
+						justify-content: space-between !important;
+						.button {
+							flex-basis: 48%;
+							width: 100%;
+						}
+					}
 				}
 			}
 		}

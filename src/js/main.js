@@ -1,42 +1,37 @@
-//AUTH
-import firebase from './auth/firebase.js';
-
-//REDUX
-import { store } from './store/index.js';
-
 //STYLES
 import '../scss/dashboard.scss';
 import '../../node_modules/@fortawesome/fontawesome-free/js/all.js';
 
-import { fetchEntriesOfCurrentMonth } from './store/actionCreators/entry.js';
-import { setAuthedUser } from './store/actionCreators/user.js';
+//AUTH
+import firebase from './auth/firebase';
+import { setAuthedUser } from './store/actionCreators/user';
+import addLogoutHandler from './auth/addLogoutHandler';
 
-//-------------------- UI --------------------//
-//Table
-import createTableEntries from './ui/table/createTableEntries.js';
-import addClickHandlersToTableActionButtons from './ui/table/addClickHandlersToTableActionButtons.js';
-import addOnChangeHandlersToTableInputs from './ui/table/addOnChangeHandlersToTableInputs.js';
-import setFocusOnPrevioslyChangeInput from './ui/table/setFocusOnPrevioslyChangeInput.js';
+//REDUX
+import { store } from './store/index';
+import { fetchEntriesOfCurrentMonth } from './store/actionCreators/entry';
 
 //NavBar
-import updateNavbarUserName from './ui/navbar/updateNavbarUserName.js';
-import updateNavbarAvatar from './ui/navbar/updateNavbarAvatar.js';
+import updateNavbarUserName from './ui/Navbar/updateNavbarUserName';
+import updateNavbarAvatar from './ui/Navbar/updateNavbarAvatar';
+
+//Table
+import createTableEntries from './ui/Table/createTableEntries';
+import handlersTableButtons from './ui/Table/handlersTableButtons';
 
 //Add Entry Button
-import handleAddEntryButtonClick from './ui/addEntryButton/handleAddEntryButtonClick.js';
-
-//Model
-import addCloseHandlerToModel from './ui/addEntryModel/addCloseHandlerToModel.js';
-import setAddEntryModelValues from './ui/addEntryModel/setAddEntryModelValues.js';
-import addSubmitHandlerToAddEntryForm from './ui/addEntryModel/addSubmitHandlerToAddEntryForm.js';
-import addEventHandlersToModelFormInputs from './ui/addEntryModel/addEventHandlersToModelFormInputs.js';
-
-//Auth
-import addLogoutHandler from './auth/addLogoutHandler.js';
+import handleAddEntryButtonClick from './ui/addEntryButton/handleAddEntryButtonClick';
 
 //MonthToggler
-import handleMonthToggle from './ui/monthToggler/handleMonthToggle.js';
-import setTogglerMonth from './ui/monthToggler/setTogglerMonth.js';
+import handleMonthToggle from './ui/MonthToggler/handleMonthToggle';
+import setTogglerMonth from './ui/MonthToggler/setTogglerMonth';
+
+//Visualizations
+import setVisualizations from './ui/visualizations/setVisualizations';
+
+//modal
+import addCloseHandlerToModel from './ui/Model/addCloseHandlerToModel';
+import handleAddEntryModelSubmit from './ui/Model/handleEntryModelSubmit';
 
 firebase.auth().onAuthStateChanged(function (user) {
 	if (user) {
@@ -50,13 +45,12 @@ firebase.auth().onAuthStateChanged(function (user) {
 store.subscribe(() => {
 	const currentState = store.getState();
 
+	//table
 	createTableEntries(currentState);
-	addClickHandlersToTableActionButtons();
-	addOnChangeHandlersToTableInputs();
-	setFocusOnPrevioslyChangeInput(currentState);
+	handlersTableButtons();
 
-	//resetting values of add entry model (Experiemtal)
-	setAddEntryModelValues();
+	//only needed when entrie changed
+	setVisualizations();
 
 	//only needed when the toggler month changed
 	setTogglerMonth();
@@ -64,22 +58,24 @@ store.subscribe(() => {
 
 function doOnlyOnceAtTheBegining() {
 	/**** only one time is enough *****/
-	//Table
-	fetchEntriesOfCurrentMonth();
-
-	//Model
-	handleAddEntryButtonClick();
-	addCloseHandlerToModel();
-	addEventHandlersToModelFormInputs();
-	addSubmitHandlerToAddEntryForm();
-
-	//Auth
-	addLogoutHandler();
 
 	//Navbar
 	updateNavbarUserName();
 	updateNavbarAvatar();
 
+	//Table
+	fetchEntriesOfCurrentMonth();
+
+	//add entry button
+	handleAddEntryButtonClick();
+
+	//Model
+	addCloseHandlerToModel();
+	handleAddEntryModelSubmit();
+
 	//MonthToggler
 	handleMonthToggle();
+
+	//Auth
+	addLogoutHandler();
 }

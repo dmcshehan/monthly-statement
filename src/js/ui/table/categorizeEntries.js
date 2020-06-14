@@ -1,4 +1,4 @@
-export default function categorizeEntries(entries) {
+export default (entries) => {
 	const expenseEntries = entries.filter((entry) => entry.type === 'expense');
 	const incomeEntries = entries.filter((entry) => entry.type === 'income');
 
@@ -6,4 +6,4 @@ export default function categorizeEntries(entries) {
 		expenseEntries,
 		incomeEntries,
 	};
-}
+};

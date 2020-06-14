@@ -1,4 +1,4 @@
-export default function setFocusOnPrevioslyChangeInput(currentState) {
+export default (currentState) => {
 	const { lastChangedProp } = currentState.entry;
 
 	const tableInputs = document.querySelectorAll('.dashboard table tbody input');
@@ -11,4 +11,4 @@ export default function setFocusOnPrevioslyChangeInput(currentState) {
 			}
 		}
 	});
-}
+};

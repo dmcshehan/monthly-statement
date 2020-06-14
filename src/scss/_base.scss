@@ -3,6 +3,25 @@ body {
 	font-family: 'Varela Round', sans-serif;
 }
 
+.hide {
+	display: none;
+}
+
+header {
+	background-color: $main-light;
+	.navbar {
+		background-color: transparent;
+		.navbar-end {
+			.navbar-link.username {
+				.user-avatar {
+					border-radius: 100%;
+					margin-right: 10px;
+				}
+			}
+		}
+	}
+}
+
 .card {
 	border-radius: 5px;
 
