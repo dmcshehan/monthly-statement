@@ -2,8 +2,6 @@ import categorizeEntries from './categorizeEntries.js';
 import createEntryRow from './createEntryRow.js';
 
 export default (entries) => {
-	//const { entries } = currentState.entry;
-
 	let expenseRows = '',
 		incomeRows = '';
 
@@ -16,6 +14,8 @@ export default (entries) => {
 	incomeEntries.forEach((entry) => {
 		incomeRows += createEntryRow(entry);
 	});
+
+	console.log(expenseRows, incomeRows);
 
 	const expenseTbody = document.querySelector('#expensesTable tbody');
 	expenseTbody.innerHTML = expenseRows;

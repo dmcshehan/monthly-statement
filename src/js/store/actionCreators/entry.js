@@ -15,7 +15,7 @@ import createSuccessNotification from '../../ui/notifications/createSuccessNotif
 import setTogglerMonth from '../../ui/monthToggler/setTogglerMonth';
 
 //Table
-import createTableEntries from '../../ui/table/categorizeEntries';
+import createTableEntries from '../../ui/table/createTableEntries';
 import handleTableButtons from '../../ui/table/handleTableButtons';
 
 //Visualizations
@@ -88,7 +88,6 @@ function getEntries(requestedMonth) {
 			},
 		}).then(function (response) {
 			var { entries } = response.data;
-
 			createTableEntries(entries);
 			setVisualizations(entries);
 			handleTableButtons();
