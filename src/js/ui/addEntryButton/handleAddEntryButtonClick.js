@@ -1,4 +1,4 @@
-import openEntryModel from '../Model/openEntryModel';
+import openEntryModel from '../modal/openEntryModel';
 
 export default () => {
 	document.querySelector('#add-entry-button').addEventListener('click', openEntryModel);
