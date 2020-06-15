@@ -3,8 +3,8 @@ import categorizeEntries from '../Table/categorizeEntries.js';
 
 import setTotalAmounts from './setTotalamounts.js';
 
-export default () => {
-	const { expenseEntries, incomeEntries } = categorizeEntries(store.getState().entry.entries);
+export default (entries) => {
+	const { expenseEntries, incomeEntries } = categorizeEntries(entries);
 
 	var totalExpenses = expenseEntries.reduce((accumilator, currentValue) => {
 		return accumilator + +currentValue.amount;

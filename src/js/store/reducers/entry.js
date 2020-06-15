@@ -1,7 +1,6 @@
 import moment from 'moment';
 import {
-	FETCH_CURRENT_MONTH_ENTRIES_SUCCESS,
-	FETCH_SPECIFIC_MONTH_ENTRIES_SUCCESS,
+	GET_ENTRIES_SUCCESS,
 	SET_CURRENTLY_BEIGN_EDITED,
 	CLEAR_CURRENTLY_BEIGN_EDITED,
 	TOGGLE_CURRENT_MONTH,
@@ -12,25 +11,13 @@ const initialState = {
 	entries: [],
 	currentMonth: null,
 	currentlyBeignEdited: null,
-	lastChangedProp: null,
-	currentlyBeignAdded: {
-		date: moment().format('YYYY-MM-DD'),
-		reason: '',
-		amount: '',
-		currency: 'LKR',
-		type: 'expense',
-	},
 };
 
 function entryReducer(state = initialState, action) {
 	return produce(state, (draftState) => {
 		const { type, payload } = action;
 		switch (type) {
-			case FETCH_CURRENT_MONTH_ENTRIES_SUCCESS:
-				draftState.entries = payload.entries;
-				break;
-
-			case FETCH_SPECIFIC_MONTH_ENTRIES_SUCCESS:
+			case GET_ENTRIES_SUCCESS:
 				draftState.entries = payload.entries;
 				break;
 			case SET_CURRENTLY_BEIGN_EDITED:

@@ -9,33 +9,26 @@ import addLogoutHandler from './auth/addLogoutHandler';
 
 //REDUX
 import { store } from './store/index';
-import { fetchEntriesOfCurrentMonth } from './store/actionCreators/entry';
+import { getEntries } from './store/actionCreators/entry';
 
 //NavBar
 import updateNavbarUserName from './ui/Navbar/updateNavbarUserName';
 import updateNavbarAvatar from './ui/Navbar/updateNavbarAvatar';
-
-//Table
-import createTableEntries from './ui/Table/createTableEntries';
-import handlersTableButtons from './ui/Table/handlersTableButtons';
 
 //Add Entry Button
 import handleAddEntryButtonClick from './ui/addEntryButton/handleAddEntryButtonClick';
 
 //MonthToggler
 import handleMonthToggle from './ui/MonthToggler/handleMonthToggle';
-import setTogglerMonth from './ui/MonthToggler/setTogglerMonth';
-
-//Visualizations
-import setVisualizations from './ui/visualizations/setVisualizations';
 
 //modal
 import addCloseHandlerToModel from './ui/Model/addCloseHandlerToModel';
 import handleAddEntryModelSubmit from './ui/Model/handleEntryModelSubmit';
+import resetEntryModalValues from './ui/Model/resetEntryModalValues';
 
 firebase.auth().onAuthStateChanged(function (user) {
 	if (user) {
-		setAuthedUser(user);
+		setAuthedUser(user); //synchronous
 		doOnlyOnceAtTheBegining();
 	} else {
 		window.location = 'index.html';
@@ -44,34 +37,24 @@ firebase.auth().onAuthStateChanged(function (user) {
 
 store.subscribe(() => {
 	const currentState = store.getState();
-
-	//table
-	createTableEntries(currentState);
-	handlersTableButtons();
-
-	//only needed when entrie changed
-	setVisualizations();
-
-	//only needed when the toggler month changed
-	setTogglerMonth();
 });
 
 function doOnlyOnceAtTheBegining() {
-	/**** only one time is enough *****/
+	console.log('Fired Functions for the first time');
+	//Table
+	getEntries();
 
 	//Navbar
 	updateNavbarUserName();
 	updateNavbarAvatar();
 
-	//Table
-	fetchEntriesOfCurrentMonth();
-
-	//add entry button
+	//Add Entry button
 	handleAddEntryButtonClick();
 
 	//Model
 	addCloseHandlerToModel();
 	handleAddEntryModelSubmit();
+	resetEntryModalValues();
 
 	//MonthToggler
 	handleMonthToggle();

@@ -1,14 +1,26 @@
 import { store } from '../index.js';
 import axios from '../../shared/axios.js';
+import moment from 'moment';
 
 import getIdTokenOfCurrentUser from '../../auth/getIdTokenOfCurrentUser.js';
 
+//modal
 import closeModel from '../../ui/Model/closeEntryModel';
 import resetEntryModelValues from '../../ui/Model/resetEntryModalValues';
 
+//notifications
+import createSuccessNotification from '../../ui/Notifications/createSuccessNotification';
+
+//Month
+import setTogglerMonth from '../../ui/MonthToggler/setTogglerMonth';
+
+//Table
+import createTableEntries from '../../ui/Table/createTableEntries';
+import setVisualizations from '../../ui/visualizations/setVisualizations';
+import handleTableButtons from '../../ui/Table/handleTableButtons';
+
 import {
-	FETCH_CURRENT_MONTH_ENTRIES_SUCCESS,
-	FETCH_SPECIFIC_MONTH_ENTRIES_SUCCESS,
+	GET_ENTRIES_SUCCESS,
 	SET_CURRENTLY_BEIGN_EDITED,
 	CLEAR_CURRENTLY_BEIGN_EDITED,
 	TOGGLE_CURRENT_MONTH,
@@ -27,18 +39,41 @@ function onclearCurrentlyBeignEdited(entryId) {
 	};
 }
 
-function onGetEntriesForASpecificMonthSuccess(entries) {
+function onGetEntriesSuccess(entries) {
 	return {
-		type: FETCH_SPECIFIC_MONTH_ENTRIES_SUCCESS,
+		type: GET_ENTRIES_SUCCESS,
 		payload: {
 			entries,
 		},
 	};
 }
 
+function onToggleCurrentMonth(month) {
+	return {
+		type: TOGGLE_CURRENT_MONTH,
+		payload: {
+			month,
+		},
+	};
+}
 // end return functions
 
-function fetchEntriesOfCurrentMonth() {
+function getEntries(requestedMonth) {
+	var month = moment().format('YYYY-MM');
+	var { currentMonth } = store.getState().entry;
+
+	if (requestedMonth) {
+		month = requestedMonth;
+	} else {
+		if (currentMonth) {
+			month = currentMonth;
+		}
+	}
+
+	setTogglerMonth(month);
+	//only dispatch actions don't get entries
+	dispatch(dispatch(onToggleCurrentMonth(month)));
+
 	getIdTokenOfCurrentUser((idToken) => {
 		axios({
 			method: 'get',
@@ -46,22 +81,23 @@ function fetchEntriesOfCurrentMonth() {
 			headers: {
 				Authorization: 'Bearer ' + idToken,
 			},
-		})
-			.then(function (response) {
-				dispatch({
-					type: FETCH_CURRENT_MONTH_ENTRIES_SUCCESS,
-					payload: {
-						entries: response.data,
-					},
-				});
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
+			params: {
+				month,
+			},
+		}).then(function (response) {
+			var { entries } = response.data;
+
+			createTableEntries(entries);
+			setVisualizations(entries);
+			handleTableButtons();
+
+			dispatch(onGetEntriesSuccess(entries));
+		});
 	});
 }
 
 function addEntry(entryObj) {
+	console.log(entryObj);
 	getIdTokenOfCurrentUser((idToken) => {
 		axios({
 			method: 'post',
@@ -72,17 +108,17 @@ function addEntry(entryObj) {
 			headers: {
 				Authorization: 'Bearer ' + idToken,
 			},
-		})
-			.then(function (response) {
-				if (response.status === 201) {
-					fetchEntriesOfCurrentMonth();
-					closeModel();
-					resetEntryModelValues();
-				}
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
+		}).then(function (response) {
+			console.log(response);
+			var addedEntryMonth = moment(response.data.entry.date).format('YYYY-MM');
+
+			if (response.status === 200) {
+				closeModel();
+				createSuccessNotification(response.data.message);
+				getEntries(addedEntryMonth);
+				resetEntryModelValues();
+			}
+		});
 	});
 }
 
@@ -97,18 +133,16 @@ function updateEntry(updatedEntry) {
 			data: {
 				updatedEntry,
 			},
-		})
-			.then(function (response) {
-				if (response.status === 204) {
-					fetchEntriesOfCurrentMonth();
-					dispatch(onclearCurrentlyBeignEdited());
-					closeModel();
-					resetEntryModelValues();
-				}
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
+		}).then(function (response) {
+			const { currentMonth } = store.getState().entry;
+			if (response.status === 200) {
+				createSuccessNotification(response.data.message);
+				closeModel();
+				resetEntryModelValues();
+				dispatch(onclearCurrentlyBeignEdited());
+				getEntries();
+			}
+		});
 	});
 }
 
@@ -123,38 +157,10 @@ function deleteEntry(entryId) {
 			data: {
 				entryId,
 			},
-		})
-			.then(function (response) {
-				console.log(response);
-				fetchEntriesOfCurrentMonth();
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
-	});
-}
-
-function getEntriesForASpecificMonth(month) {
-	console.log(month);
-	getIdTokenOfCurrentUser((idToken) => {
-		axios({
-			method: 'get',
-			url: '/month',
-			headers: {
-				Authorization: 'Bearer ' + idToken,
-			},
-			params: {
-				month,
-			},
-		})
-			.then(function (response) {
-				var entries = response.data;
-				dispatch(onGetEntriesForASpecificMonthSuccess(entries));
-				dispatch(onToggleCurrentMonthSuccess(month));
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
+		}).then(function (response) {
+			createSuccessNotification(response.data.message);
+			getEntries();
+		});
 	});
 }
 
@@ -171,21 +177,17 @@ function clearCurrentlyBeignEdited(entryId) {
 	dispatch(onclearCurrentlyBeignEdited(entryId));
 }
 
-function onToggleCurrentMonthSuccess(month) {
-	return {
-		type: TOGGLE_CURRENT_MONTH,
-		payload: {
-			month,
-		},
-	};
+function toggleCurrentMonth(month) {
+	dispatch(onToggleCurrentMonth(month));
+	getEntries();
 }
 
 export {
-	fetchEntriesOfCurrentMonth,
 	setCurrentlyBeignEdited,
 	clearCurrentlyBeignEdited,
 	addEntry,
 	deleteEntry,
 	updateEntry,
-	getEntriesForASpecificMonth,
+	getEntries,
+	toggleCurrentMonth,
 };

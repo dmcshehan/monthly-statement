@@ -1,8 +1,8 @@
 import categorizeEntries from './categorizeEntries.js';
 import createEntryRow from './createEntryRow.js';
 
-export default (currentState) => {
-	const { entries } = currentState.entry;
+export default (entries) => {
+	//const { entries } = currentState.entry;
 
 	let expenseRows = '',
 		incomeRows = '';
