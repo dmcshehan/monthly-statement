@@ -15,9 +15,11 @@ import createSuccessNotification from '../../ui/Notifications/createSuccessNotif
 import setTogglerMonth from '../../ui/MonthToggler/setTogglerMonth';
 
 //Table
-import createTableEntries from '../../ui/Table/createTableEntries';
-import setVisualizations from '../../ui/Visualizations/setVisualizations';
+import createTableEntries from '../../ui/Table/categorizeEntries';
 import handleTableButtons from '../../ui/Table/handleTableButtons';
+
+//Visualizations
+import setVisualizations from '../../ui/Visualizations/setVisualizations';
 
 import {
 	GET_ENTRIES_SUCCESS,
