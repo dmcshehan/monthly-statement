@@ -15,8 +15,6 @@ export default (entries) => {
 		incomeRows += createEntryRow(entry);
 	});
 
-	console.log(expenseRows, incomeRows);
-
 	const expenseTbody = document.querySelector('#expensesTable tbody');
 	expenseTbody.innerHTML = expenseRows;
 
