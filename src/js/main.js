@@ -22,9 +22,9 @@ import handleAddEntryButtonClick from './ui/AddEntryButton/handleAddEntryButtonC
 import handleMonthToggle from './ui/MonthToggler/handleMonthToggle';
 
 //modal
-import addCloseHandlerToModel from './ui/Model/addCloseHandlerToModel';
-import handleAddEntryModelSubmit from './ui/Model/handleEntryModelSubmit';
-import resetEntryModalValues from './ui/Model/resetEntryModalValues';
+import addCloseHandlerToModel from './ui/Modal/addCloseHandlerToModel';
+import handleAddEntryModelSubmit from './ui/Modal/handleEntryModelSubmit';
+import resetEntryModalValues from './ui/Modal/resetEntryModalValues';
 
 firebase.auth().onAuthStateChanged(function (user) {
 	if (user) {

@@ -5,8 +5,8 @@ import moment from 'moment';
 import getIdTokenOfCurrentUser from '../../auth/getIdTokenOfCurrentUser.js';
 
 //modal
-import closeModel from '../../ui/Model/closeEntryModel';
-import resetEntryModelValues from '../../ui/Model/resetEntryModalValues';
+import closeModel from '../../ui/Modal/closeEntryModel';
+import resetEntryModelValues from '../../ui/Modal/resetEntryModalValues';
 
 //notifications
 import createSuccessNotification from '../../ui/Notifications/createSuccessNotification';
