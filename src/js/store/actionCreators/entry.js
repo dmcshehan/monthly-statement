@@ -5,21 +5,21 @@ import moment from 'moment';
 import getIdTokenOfCurrentUser from '../../auth/getIdTokenOfCurrentUser.js';
 
 //modal
-import closeModel from '../../ui/Modal/closeEntryModel';
-import resetEntryModelValues from '../../ui/Modal/resetEntryModalValues';
+import closeModel from '../../ui/modal/closeEntryModel';
+import resetEntryModelValues from '../../ui/modal/resetEntryModalValues';
 
 //notifications
-import createSuccessNotification from '../../ui/Notifications/createSuccessNotification';
+import createSuccessNotification from '../../ui/notifications/createSuccessNotification';
 
 //Month
-import setTogglerMonth from '../../ui/MonthToggler/setTogglerMonth';
+import setTogglerMonth from '../../ui/monthToggler/setTogglerMonth';
 
 //Table
-import createTableEntries from '../../ui/Table/categorizeEntries';
-import handleTableButtons from '../../ui/Table/handleTableButtons';
+import createTableEntries from '../../ui/table/categorizeEntries';
+import handleTableButtons from '../../ui/table/handleTableButtons';
 
 //Visualizations
-import setVisualizations from '../../ui/Visualizations/setVisualizations';
+import setVisualizations from '../../ui/visualizations/setVisualizations';
 
 import {
 	GET_ENTRIES_SUCCESS,

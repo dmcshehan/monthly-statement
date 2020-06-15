@@ -1,7 +1,7 @@
 import axios from 'axios';
-import closeModel from '../ui/Model/closeEntryModel';
-import resetEntryModelValues from '../ui/Model/resetEntryModalValues';
-import createErrorNotification from '../ui/Notifications/createErrorNotification';
+import closeModel from '../ui/modal/closeEntryModel';
+import resetEntryModelValues from '../ui/modal/resetEntryModalValues';
+import createErrorNotification from '../ui/notifications/createErrorNotification';
 
 const instance = axios.create({
 	baseURL: 'http://localhost:5000',

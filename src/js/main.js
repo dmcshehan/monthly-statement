@@ -12,19 +12,19 @@ import { store } from './store/index';
 import { getEntries } from './store/actionCreators/entry';
 
 //NavBar
-import updateNavbarUserName from './ui/Navbar/updateNavbarUserName';
-import updateNavbarAvatar from './ui/Navbar/updateNavbarAvatar';
+import updateNavbarUserName from './ui/navbar/updateNavbarUserName';
+import updateNavbarAvatar from './ui/navbar/updateNavbarAvatar';
 
 //Add Entry Button
-import handleAddEntryButtonClick from './ui/AddEntryButton/handleAddEntryButtonClick';
+import handleAddEntryButtonClick from './ui/addEntryButton/handleAddEntryButtonClick';
 
 //MonthToggler
-import handleMonthToggle from './ui/MonthToggler/handleMonthToggle';
+import handleMonthToggle from './ui/monthToggler/handleMonthToggle';
 
 //modal
-import addCloseHandlerToModel from './ui/Modal/addCloseHandlerToModel';
-import handleAddEntryModelSubmit from './ui/Modal/handleEntryModelSubmit';
-import resetEntryModalValues from './ui/Modal/resetEntryModalValues';
+import addCloseHandlerToModel from './ui/modal/addCloseHandlerToModel';
+import handleAddEntryModelSubmit from './ui/modal/handleEntryModelSubmit';
+import resetEntryModalValues from './ui/modal/resetEntryModalValues';
 
 firebase.auth().onAuthStateChanged(function (user) {
 	if (user) {

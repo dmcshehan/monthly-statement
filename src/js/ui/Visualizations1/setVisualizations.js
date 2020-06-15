@@ -1,4 +1,4 @@
-import categorizeEntries from '../Table/categorizeEntries.js';
+import categorizeEntries from '../table/categorizeEntries.js';
 
 import setTotalAmounts from './setTotalamounts.js';
 

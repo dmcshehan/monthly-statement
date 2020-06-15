@@ -1,8 +1,8 @@
 import { setCurrentlyBeignEdited, deleteEntry } from '../../store/actionCreators/entry.js';
 
-import openEntryModel from '../Model/openEntryModel.js';
-import setEntryModelValues from '../Model/setEntryModelValues.js';
-import makeUpdateForm from '../Model/makeUpdateForm';
+import openEntryModel from '../modal/openEntryModel.js';
+import setEntryModelValues from '../modal/setEntryModelValues.js';
+import makeUpdateForm from '../modal/makeUpdateForm';
 
 export default () => {
 	const actionsButtons = document.querySelectorAll('.dashboard table tbody .action-buttons .button');
