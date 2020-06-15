@@ -16,7 +16,7 @@ import updateNavbarUserName from './ui/Navbar/updateNavbarUserName';
 import updateNavbarAvatar from './ui/Navbar/updateNavbarAvatar';
 
 //Add Entry Button
-import handleAddEntryButtonClick from './ui/addEntryButton/handleAddEntryButtonClick';
+import handleAddEntryButtonClick from './ui/AddEntryButton/handleAddEntryButtonClick';
 
 //MonthToggler
 import handleMonthToggle from './ui/MonthToggler/handleMonthToggle';
@@ -40,7 +40,6 @@ store.subscribe(() => {
 });
 
 function doOnlyOnceAtTheBegining() {
-	console.log('Fired Functions for the first time');
 	//Table
 	getEntries();
 

@@ -1,4 +1,3 @@
-import { store } from '../../store/index.js';
 import categorizeEntries from '../Table/categorizeEntries.js';
 
 import setTotalAmounts from './setTotalamounts.js';

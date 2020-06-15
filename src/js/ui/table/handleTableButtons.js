@@ -1,4 +1,3 @@
-import { store } from '../../store';
 import { setCurrentlyBeignEdited, deleteEntry } from '../../store/actionCreators/entry.js';
 
 import openEntryModel from '../Model/openEntryModel.js';

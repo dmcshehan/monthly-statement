@@ -16,7 +16,7 @@ import setTogglerMonth from '../../ui/MonthToggler/setTogglerMonth';
 
 //Table
 import createTableEntries from '../../ui/Table/createTableEntries';
-import setVisualizations from '../../ui/visualizations/setVisualizations';
+import setVisualizations from '../../ui/Visualizations/setVisualizations';
 import handleTableButtons from '../../ui/Table/handleTableButtons';
 
 import {
