@@ -4,7 +4,8 @@ import resetEntryModelValues from '../ui/modal/resetEntryModalValues';
 import createErrorNotification from '../ui/notifications/createErrorNotification';
 
 const instance = axios.create({
-	baseURL: 'http://localhost:5000',
+	//baseURL: 'http://localhost:5000',
+	baseURL: 'https://monthlystatement.herokuapp.com/',
 	headers: {
 		'Content-Type': 'application/json',
 	},
