@@ -4,6 +4,8 @@
 
 A monthly expense management application built with pure JavaScript and Redux. You can add montly expenses and incomes. It shows the total monthly expenses and incomes. I have developed a seperate [backend](https://github.com/dmcshehan/monthly-statement-backend) for this application.
 
+![featured image](https://imgur.com/UXTKfYB)
+
 ## Buy me a coffee
 
 Whether you use this project, have learned something from it, or just like it, please consider supporting it by buying me a coffee, so I can dedicate more time on open-source projects like this :)
@@ -18,7 +20,7 @@ Whether you use this project, have learned something from it, or just like it, p
 ## Setup
 
 1.  Clone this repo to your computer.
-2.  Clone [backend](https://github.com/dmcshehan/monthly-statement-backend) repo to your computer. (Only if you need to use the backend I have developed for this application)
+2.  Clone [backend](https://github.com/dmcshehan/monthly-statement-backend) repo to your computer. (Only if you need to run the backend server I have developed for this application)
 
 ## Usage
 
