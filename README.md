@@ -58,7 +58,7 @@ Whether you use this project, have learned something from it, or just like it, p
 
 ### Step 03
 
-- 🔃 Create a new pull request using (`https://github.com/dmcshehan/monthly-statement/compare`)
+- 🔃 Create a new pull request using this [link](https://github.com/dmcshehan/monthly-statement/compare)(`https://github.com/dmcshehan/monthly-statement/compare`)
 
 ## License
 
