@@ -39,3 +39,23 @@ Whether you use this project, have learned something from it, or just like it, p
 5.  Chnage `baseURL` of `src/js/shared/axios.js` to the URL where the backend app is running (Example : `http://localhost:3000/`)
 6.  Run `npm install` or `yarn install` in the project root folder to install all the dependencies.
 7.  Run `npm start` or `yarn start` in order to start the project in your local enviroment (`http://localhost:3001/`)
+
+## Contributing
+
+### Step 01
+
+#### Option 01
+
+- 🍴 Fork this repo!
+
+#### Option 02
+
+- Clone this repo to your local machine using (`git clone https://github.com/dmcshehan/monthly-statement`)
+
+### Step 02
+
+- Hack away and do changes as you want! 🔨🔨🔨
+
+### Step 03
+
+- 🔃 Create a new pull request using (`https://github.com/dmcshehan/monthly-statement/compare`)
