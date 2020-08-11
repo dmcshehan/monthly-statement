@@ -47,17 +47,7 @@ Whether you use this project, have learned something from it, or just like it, p
 #### Option 01
 
 - 🍴 Fork this repo!
-
-#### Option 02
-
-- Clone this repo to your local machine using (`git clone https://github.com/dmcshehan/monthly-statement`)
-
-### Step 02
-
-- Hack away and do changes as you want! 🔨🔨🔨
-
-### Step 03
-
+- 🔨 Hack away and do changes as you want!
 - 🔃 Create a new pull request using this [link](https://github.com/dmcshehan/monthly-statement/compare) (`https://github.com/dmcshehan/monthly-statement/compare`)
 
 ## License
