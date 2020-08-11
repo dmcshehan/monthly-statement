@@ -42,7 +42,7 @@ A monthly expense management application built with pure JavaScript and Redux. Y
 
 ## License
 
-[MIT](https://github.com/dmcshehan/monthly-statement/blob/master/LICENSE.md)
+[MIT License](https://github.com/dmcshehan/monthly-statement/blob/master/LICENSE.md)
 
 ## Buy me a coffee
 
