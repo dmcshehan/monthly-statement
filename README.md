@@ -42,10 +42,6 @@ Whether you use this project, have learned something from it, or just like it, p
 
 ## Contributing
 
-### Step 01
-
-#### Option 01
-
 - 🍴 Fork this repo!
 - 🔨 Hack away and do changes as you want!
 - 🔃 Create a new pull request using this [link](https://github.com/dmcshehan/monthly-statement/compare) (`https://github.com/dmcshehan/monthly-statement/compare`)
