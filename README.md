@@ -24,13 +24,13 @@ Whether you use this project, have learned something from it, or just like it, p
 
 ## Usage
 
-### Method 01 (Without Backend Server on Local Machine)
+### Method 01 ❌ (Without Backend Server on Local Machine)
 
 1.  Navigate to the root folder
 2.  Run `npm install` or `yarn install` in the project root folder to install all the dependencies.
 3.  Run `npm start` or `yarn start` in order to start the project in your local enviroment (`http://localhost:3000/`)
 
-### Method 02 (With Backend Server on Local Machine)
+### Method 02 ✅ (With Backend Server on Local Machine)
 
 1.  Navigate to the `monthly-statement-backend` folder
 2.  Run `npm install` or `yarn install` in the project root folder to install all the dependencies.
